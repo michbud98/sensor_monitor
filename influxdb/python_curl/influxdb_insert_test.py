@@ -78,7 +78,7 @@ def main(argv):
             sleep_time = int(arg)
         if opt in ("-d", "--database"):
             database_name_arg = arg
-        if opt in "--debug":
+        if opt == "--debug":
             print("Setting log on debug")
         if opt in ("-a", "--address"):
             url_domain_arg = arg

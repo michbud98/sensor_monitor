@@ -19,6 +19,7 @@ from requests.exceptions import HTTPError, ConnectionError
 import platform  # For getting the operating system name
 import subprocess  # For executing a shell command
 
+# TODO Fix logging (after one cycle it wont write in file)
 # create logger with 'spam_application'
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
@@ -145,7 +146,7 @@ def main(argv):
             sleep_time = int(arg)
         if opt in ("-d", "--database"):
             database_name_arg = arg
-        if opt in "--debug":
+        if opt == "--debug":
             ch.setLevel(logging.DEBUG)
         if opt in ("-a", "--address"):
             url_domain_arg = arg
