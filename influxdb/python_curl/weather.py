@@ -177,9 +177,9 @@ def main(argv):
                 logger.info("No connection to wi-fi")
                 # TODO Add saving to local file
         except HTTPError as http_err:
-            print(f'HTTP error occurred: {http_err}')
+            logger.error(f'HTTP error occurred: {http_err}')
         except ConnectionError as conn_err:
-            print(f'Connection error occurred: {conn_err}')
+            logger.error(f'Connection error occurred: {conn_err}')
         except Exception as err:
             logger.error(f'Other error occurred: {err}')
             sys.exit()
