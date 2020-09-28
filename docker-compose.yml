@@ -18,6 +18,13 @@ services:
     volumes:
       - ./influxdb/database_files:/var/lib/influxdb
       - ./influxdb/config_files/influxdb.conf:/etc/influxdb/influxdb.conf:ro
+  telegraf:
+    image: telegraf:latest
+    container_name: telegraf
+    volumes:
+      - "./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro"
+    links:
+      - influxdb
 
 
       
