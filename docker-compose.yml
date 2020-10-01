@@ -23,7 +23,7 @@ services:
     container_name: telegraf
     privileged: true
     volumes:
-      - "./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro"
+      - "./telegraf/telegraf_docker.conf:/etc/telegraf/telegraf.conf:ro"
       - "/:/hostfs:ro"
     environment:
       - HOST_MOUNT_PREFIX=/hostfs

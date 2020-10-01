@@ -1,0 +1,1 @@
+telegraf --config telegraf_local.conf
