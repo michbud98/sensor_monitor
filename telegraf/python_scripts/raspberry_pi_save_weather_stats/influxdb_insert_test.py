@@ -3,13 +3,7 @@
 import sys
 import getopt
 import time
-
-from bme280 import BME280
-
-try:
-    from smbus2 import SMBus
-except ImportError:
-    from smbus import SMBus
+import random
 
 from subprocess import PIPE, Popen, check_output
 import logging
@@ -17,7 +11,6 @@ import requests
 from requests.exceptions import HTTPError, ConnectionError
 
 import platform  # For getting the operating system name
-import subprocess  # For executing a shell command
 
 # TODO Fix logging (after one cycle it wont write in file)
 # create logger with 'spam_application'
@@ -37,23 +30,6 @@ ch.setFormatter(formatter)
 # add the handlers to the logger
 logger.addHandler(fh)
 logger.addHandler(ch)
-
-bus = SMBus(1)
-bme280 = BME280(i2c_dev=bus)
-
-
-# Check for Wi-Fi connection (takhle metoda na Macu nefunguje na raspberry ano)
-def check_wifi():
-    """
-    Checks for wifi connection (works only on Raspberry PI)
-
-    :return: bool True/False depending on connection to wi-fi
-    """
-    if check_output(['hostname', '-I']):
-        return True
-    else:
-        return False
-
 
 def check_connection_with_influxdb(url_domain: str):
     """
@@ -104,25 +80,6 @@ def get_cpu_temperature() -> float:
     return float(output[output.index('=') + 1:output.rindex("'")])
 
 
-def get_compensated_temperature() -> float:
-    """
-    Temporary method compensating heat from CPU
-
-    :return: Float compensated temperature value
-    """
-    comp_factor = 2.25
-    cpu_temp = get_cpu_temperature()
-    raw_temp = bme280.get_temperature()
-    comp_temp = raw_temp - ((cpu_temp - raw_temp) / comp_factor)
-    logger.debug("""
-            comp_factor: {}
-            cpu_temp: {:05.2f} *C
-            raw_temp: {:05.2f} *C
-            comp_temp: {:05.2f} *C
-            """.format(comp_factor, cpu_temp, raw_temp, comp_temp))
-    return comp_temp
-
-
 def print_help():
     logger.info("weather.py -d <debug> -s <sleep_time> -a <http_address>")
 
@@ -157,9 +114,9 @@ def main(argv):
 
     while True:
         try:
-            temperature = get_compensated_temperature()
-            pressure = bme280.get_pressure()
-            humidity = bme280.get_humidity()
+            temperature = random.randint(-20, 40)
+            pressure = random.randint(600, 900)
+            humidity = random.randint(0, 100)
             logger.info("""
             Compensated_Temperature: {:05.2f} *C
             Pressure: {:05.2f} hPa
@@ -169,13 +126,8 @@ def main(argv):
             temperature value={}
             pressure value={}
             humidity value={}""".format(temperature, pressure, humidity)
-            if check_wifi():
-                logger.debug("Connected to wifi")
-                check_connection_with_influxdb(url_domain_arg)
-                insert_into_influxdb(url_domain_arg, database_name_arg, data_string)
-            else:
-                logger.info("No connection to wi-fi")
-                # TODO Add saving to local file
+            check_connection_with_influxdb(url_domain_arg)
+            insert_into_influxdb(url_domain_arg, database_name_arg, data_string)
         except HTTPError as http_err:
             logger.error(f'HTTP error occurred: {http_err}')
         except ConnectionError as conn_err:

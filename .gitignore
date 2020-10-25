@@ -2,3 +2,4 @@
 influxdb/database_files/
 grafana/grafana_data
 **/logs
+**/secrets
