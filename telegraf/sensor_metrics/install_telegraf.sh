@@ -1,8 +1,8 @@
-# TODO Add argument for switching debug on and off
 DEBUG=0
 
 install_telegraf()
 {
+	echo "Installing telegraf"
 	[ $DEBUG -eq 1 ] && set -x
 	apt-get update
 
@@ -54,9 +54,25 @@ install_configuration()
 	fi
 }
 
+#TODO Add code for setting env variables
+# Prints help
+usage()
+{
+	echo "install_telegraf.sh [-dh]"
+}
+
+while getopts dh Opt; do
+  case "$Opt" in
+    d)  DEBUG=1 ;;
+    h)  usage
+        exit 0 ;;
+    \?) usage; exit 1 ;;
+  esac
+done
+shift `expr $OPTIND - 1`
+
 # Install telegraf on sensor
 install_telegraf
-# Install telegraf configuration and scripts
+# Install telegraf configuration and scripts at /etc/telegraf
 install_configuration
 
-#TODO Add code for setting env variables
