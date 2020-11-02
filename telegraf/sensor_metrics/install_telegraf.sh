@@ -57,8 +57,19 @@ install_configuration()
 	else	
 		echo "SUCCESS: ownership of file get_weather_data changed to user pi"
 	fi
+	
+	echo "Changing default logging directory /var/log/telegraf ownership to pi"
+	chown pi /var/log/telegraf && chgrp pi /var/log/telegraf
+	RC=$?
+
+	if [ $RC -ne 0 ]; then
+		echo "ERROR: Cannot change ownership of logging directory /var/log/telegraf to user pi"
+	else	
+		echo "SUCCESS: ownership of logging directory /var/log/telegraf  changed to user pi"
+	fi
 }
-#TODO Add code for saving influx enviromental variables
+
+# TODO Add code for saving influx enviromental variables
 
 enter_env_var_values()
 {
