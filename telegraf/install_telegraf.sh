@@ -42,7 +42,7 @@ install_configuration()
 	fi
 
 	echo "Placing custom python script to telegraf config dir"
-	cp ../python_scripts/raspberry_pi_save_weather_stats/get_weather_data.py /etc/telegraf/
+	cp /python_scripts/raspberry_pi_save_weather_stats/get_weather_data.py /etc/telegraf/
 	RC=$?	
 	if [ $RC -ne 0 ]; then
 		echo "ERROR: Cannot place python script in telegraf config directory /etc/telegraf"

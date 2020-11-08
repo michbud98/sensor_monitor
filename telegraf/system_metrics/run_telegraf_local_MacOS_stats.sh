@@ -1,1 +1,0 @@
-telegraf --config telegraf_local_MacOS_stats.conf
