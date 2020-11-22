@@ -1,0 +1,7 @@
+name: "Raspberry pi telegraf installation"
+
+description: "Tests telegraf installation"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"

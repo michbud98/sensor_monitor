@@ -1,4 +1,4 @@
-FROM balenalib/raspberrypi3-python:build
+FROM balenalib/raspberrypi3-python
 
 ENV HOSTNAME="docker_test_env"
 ENV INFLUX_HOST="https://eu-central-1-1.aws.cloud2.influxdata.com"
@@ -7,7 +7,7 @@ ENV INFLUX_TOKEN="pIbl-CNv5q6onoqnev6VzDrYPw3U2ATHjmntsgkoD4OnYDy0hW1X9IWYqhvhCN
 ENV INFLUX_ORG="swiftblade1982@gmail.com"
 ENV INFLUX_BUCKET="Sensor_data"
 
-RUN useradd -m pi
+#RUN /bin/sh -c "useradd -m pi"
 
 COPY . /home/pi
 
