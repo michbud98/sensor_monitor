@@ -199,7 +199,7 @@ enter_sensor_name()
 	while true; do
 		read -p "Enter sensor hostname [HOSTNAME] (Default used on empty string) : " HOSTNAME
 		if [ -z "$HOSTNAME" ]; then
-			echo "You entered empty string. Default hostname will be used."
+			echo "You entered empty string. Default hostname for this device will be used."
 		else
 			echo "You entered value [$HOSTNAME] as sensor name"
 		fi
