@@ -53,20 +53,26 @@ def get_compensated_temperature() -> float:
 
 
 def main(argv):
-    try:
-        # TODO find out which temperature collection is more accurate raw/compensated
-        #temperature = bme280.get_temperature()
-        temperature = get_compensated_temperature()
-        pressure = bme280.get_pressure()
-        humidity = bme280.get_humidity()
-        print("sensor_temperature temperature={}".format(temperature))
-        print("sensor_pressure pressure={}".format(pressure))
-        print("sensor_humidity humidity={}".format(humidity))
-    except:
-        print(traceback.format_exc())
-        
+    i = 0
+    # First data from enviro sensor is flawed.
+    # This gets data after 3 cycles each with 1 second waiting time
+    while i <= 2:
+        try:
+            temperature = get_compensated_temperature()
+            pressure = bme280.get_pressure()
+            humidity = bme280.get_humidity()
+            i += 1
+            time.sleep(1)
+        except:
+            print(traceback.format_exc())
+    
+    print("sensor_temperature temperature={}".format(temperature))
+    print("sensor_pressure pressure={}".format(pressure))
+    print("sensor_humidity humidity={}".format(humidity))
+
 
 if __name__ == "__main__":
     main(sys.argv[1:])
+
 
 
