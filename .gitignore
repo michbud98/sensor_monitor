@@ -3,3 +3,5 @@
 **grafana/grafana_data
 **/logs
 **/secrets
+/telegraf/nodemcu/sensor_values.html
+**/venv
