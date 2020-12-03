@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-import sys, getopt
+import sys, getopt, re
 import requests
 from bs4 import BeautifulSoup
-import re
+
 
 def get_sensor_data_html(sensor_url:str) -> str:
     """
@@ -40,22 +40,28 @@ def get_int_value(value_str:str, regex:str) -> int:
     # r.sub finds charakters specified by regex and replaces them with empty string
     value = float(re.sub(regex, "", value_str))
     return value
+
+def print_help():
+    print ('get_weather_data_nodemcu.py [-h] -t "<http-adress-of-sensor>"')
     
-#TODO Add humidity after sensor is upgraded
+# TODO Add pressure after sensor is upgraded
 def main(argumentList):
+    if not argumentList:
+        print_help()
+        sys.exit(1)
+    
     http = ""
     options = "ht:"
-    long_options = ["help", "http"]
+    long_options = ["Help"]
 
     arguments, values = getopt.getopt(argumentList, options, long_options)
 
     for currentArgument, currentValue in arguments:
-        
         if currentArgument in ("-h", "--Help"):
-            print ("get_weather_data_nodemcu.py [-h] -t <http-adress-of-sensor>")
-            sys.exit()
+            print_help()
+            sys.exit(0)
 
-        elif currentArgument in ("-t", "--http"):
+        elif currentArgument in ("-t"):
             http = currentValue
     
     
