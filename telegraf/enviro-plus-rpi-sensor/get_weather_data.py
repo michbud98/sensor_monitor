@@ -52,7 +52,7 @@ def get_compensated_temperature() -> float:
 
 
 
-def main(argv):
+def main():
     i = 0
     # First data from enviro sensor is flawed.
     # This gets data after 3 cycles each with 1 second waiting time
@@ -72,7 +72,7 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main()
 
 
 

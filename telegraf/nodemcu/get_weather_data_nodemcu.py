@@ -1,4 +1,6 @@
-import sys
+#!/usr/bin/env python3
+
+import sys, getopt
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -39,12 +41,28 @@ def get_int_value(value_str:str, regex:str) -> int:
     value = float(re.sub(regex, "", value_str))
     return value
     
+#TODO Add humidity after sensor is upgraded
+def main(argumentList):
+    http = ""
+    options = "ht:"
+    long_options = ["help", "http"]
 
-def main():
-    sensor_html = get_sensor_data_html("http://192.168.77.108/values")
+    arguments, values = getopt.getopt(argumentList, options, long_options)
+
+    for currentArgument, currentValue in arguments:
+        
+        if currentArgument in ("-h", "--Help"):
+            print ("get_weather_data_nodemcu.py [-h] -t <http-adress-of-sensor>")
+            sys.exit()
+
+        elif currentArgument in ("-t", "--http"):
+            http = currentValue
+    
+    
+    sensor_html = get_sensor_data_html(http) # "http://192.168.77.108/values"
     print("sensor_temperature temperature={}".format(get_value_from_sensor(sensor_html, "°[cC]$")))
     print("sensor_humidity humidity={}".format(get_value_from_sensor(sensor_html, "%$")))
- 
+    
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])
