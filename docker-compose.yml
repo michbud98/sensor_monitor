@@ -12,7 +12,7 @@ services:
       user: "0" # Root user id, without it we cant use mounts
   influxdb:
     image: influxdb:1.8.3
-    container_name: influxdb_database
+    container_name: influxdb
     ports:
       - 8086:8086
     volumes:
