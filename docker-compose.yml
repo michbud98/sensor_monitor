@@ -1,21 +1,32 @@
-version: '2.0'
+version: "3.0"
 services:
   grafana:
-      image: grafana/grafana:latest
-      container_name: grafana
-      ports:
-        - 3000:3000
-      volumes:
-        - "./grafana/grafana_data:/var/lib/grafana"
-      links:
-        - influxdb
-      user: "0" # Root user id, without it we cant use mounts
+    image: grafana/grafana:latest
+    container_name: grafana
+    user: "0" # Root user id, without it we cant use mounts
+    ports:
+      - 3000:3000
+    volumes:
+      - "$PWD/grafana/grafana_data:/var/lib/grafana"
+    links:
+      - influxdb
+
   influxdb:
     image: influxdb:1.8.3
     container_name: influxdb
     ports:
       - 8086:8086
     volumes:
-      - ./influxdb/database_files:/var/lib/influxdb
-      - ./influxdb/config_files/influxdb.conf:/etc/influxdb/influxdb.conf:ro
+      - $PWD/influxdb/database_files:/var/lib/influxdb
+      - $PWD/influxdb/config_files/influxdb.conf:/etc/influxdb/influxdb.conf:ro
 
+  telegraf:
+    build: 
+      context: $PWD/telegraf/nodemcu/
+      dockerfile: Dockerfile
+    image: michbud98/telegraf-python:1.0
+    volumes:
+      - $PWD/telegraf/nodemcu/telegraf_docker_my.conf:/etc/telegraf/telegraf.conf:ro
+      - $PWD/telegraf/nodemcu/get_weather_data_nodemcu.py:/etc/telegraf/get_weather_data_nodemcu.py
+    links:
+      - influxdb 

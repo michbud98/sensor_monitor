@@ -65,7 +65,7 @@ def main():
             time.sleep(1)
         except:
             print(traceback.format_exc())
-    
+    #TODO Add string value specifiing the sensor
     print("sensor_temperature temperature={}".format(temperature))
     print("sensor_pressure pressure={}".format(pressure))
     print("sensor_humidity humidity={}".format(humidity))

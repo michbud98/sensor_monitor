@@ -66,6 +66,7 @@ def main(argumentList):
     
     
     sensor_html = get_sensor_data_html(http) # "http://192.168.77.108/values"
+    #TODO Add string value specifiing the sensor
     print("sensor_temperature temperature={}".format(get_value_from_sensor(sensor_html, "°[cC]$")))
     print("sensor_humidity humidity={}".format(get_value_from_sensor(sensor_html, "%$")))
     

@@ -4,3 +4,4 @@
 /telegraf/nodemcu/sensor_values.html
 /telegraf/nodemcu/telegraf
 **/venv
+/telegraf/nodemcu/telegraf_docker_my.conf
