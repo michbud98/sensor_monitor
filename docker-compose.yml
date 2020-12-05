@@ -25,6 +25,7 @@ services:
       context: $PWD/telegraf/nodemcu/
       dockerfile: Dockerfile
     image: michbud98/telegraf-python:1.0
+    container_name: telegraf
     volumes:
       - $PWD/telegraf/nodemcu/telegraf_docker_my.conf:/etc/telegraf/telegraf.conf:ro
       - $PWD/telegraf/nodemcu/get_weather_data_nodemcu.py:/etc/telegraf/get_weather_data_nodemcu.py
