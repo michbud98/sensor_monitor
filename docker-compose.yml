@@ -1,6 +1,7 @@
-version: "3.0"
+version: "3.8"
 services:
   grafana:
+    restart: always
     image: grafana/grafana:latest
     container_name: grafana
     user: "0" # Root user id, without it we cant use mounts
@@ -12,6 +13,7 @@ services:
       - influxdb
 
   influxdb:
+    restart: always
     image: influxdb:1.8.3
     container_name: influxdb
     ports:
@@ -21,6 +23,7 @@ services:
       - $PWD/influxdb/config_files/influxdb.conf:/etc/influxdb/influxdb.conf:ro
 
   telegraf:
+    restart: always
     build: 
       context: $PWD/telegraf/nodemcu/
       dockerfile: Dockerfile
