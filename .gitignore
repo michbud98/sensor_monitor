@@ -6,3 +6,4 @@
 /telegraf/nodemcu/telegraf
 **/venv
 /telegraf/nodemcu/telegraf_docker_my.conf
+/telegraf/enviro-plus-rpi-sensor/telegraf_docker_my.conf
