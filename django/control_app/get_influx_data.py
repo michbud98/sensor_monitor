@@ -1,4 +1,5 @@
 import influxdb_client
+from typing import Dict, List, Tuple
 
 bucket = "Sensor_data"
 org = "swiftblade1982@gmail.com"
@@ -24,19 +25,15 @@ outdoors_query= 'from(bucket: "Sensor_data")\
   |> filter(fn: (r) => r["host"] == "telegraf-docker")\
   |> last()'
 
-indoors_result = client.query_api().query(org=org, query=indoors_query)
 
-indoors_result_tuple = []
-for table in indoors_result:
+
+def query_data_from_influxdb(query) -> List[tuple]:
+  result = client.query_api().query(org=org, query=query)
+  results = []
+  for table in result:
     for record in table.records:
-        indoors_result_tuple.append((record.get_field(), record.get_value()))
+      results.append((record.get_field(), record.get_value()))
 
-outdoors_result = client.query_api().query(org=org, query=outdoors_query)
+  return results
 
-outdoors_result_tuple = []
-for table in outdoors_result:
-    for record in table.records:
-        outdoors_result_tuple.append((record.get_field(), record.get_value()))
-        
-print("Indoors result: {}".format(indoors_result_tuple))
-print("Outdoors result: {}".format(outdoors_result_tuple))
+
