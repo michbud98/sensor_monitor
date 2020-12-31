@@ -14,6 +14,13 @@ def get_sensor_data_html(sensor_url:str) -> str:
     html = requests.get(sensor_url)
     return html
 
+def get_id_from_sensor(html:str):
+    soup = BeautifulSoup(html.content, 'html.parser')
+    results = soup.find_all('small')
+    for result in results:
+        x = re.sub(" ", "|", result.text)
+        return x.split("|")[1]
+        
 def get_value_from_sensor(html:str, regex:str) -> int:
     """
     Separates value set by regex using BeautifulSoup
@@ -66,9 +73,9 @@ def main(argumentList):
     
     
     sensor_html = get_sensor_data_html(http) # "http://192.168.77.108/values"
-    #TODO Add string value specifiing the sensor
-    print("sensor_temperature temperature={}".format(get_value_from_sensor(sensor_html, "°[cC]$")))
-    print("sensor_humidity humidity={}".format(get_value_from_sensor(sensor_html, "%$")))
+    sensor_id = "nodemcu-" + get_id_from_sensor(sensor_html)
+    print("sensor_temperature,sensor_id={} temperature={}".format(sensor_id, get_value_from_sensor(sensor_html, "°[cC]$")))
+    print("sensor_humidity,sensor_id={} humidity={}".format(sensor_id, get_value_from_sensor(sensor_html, "%$")))
     
 
 if __name__ == "__main__":
