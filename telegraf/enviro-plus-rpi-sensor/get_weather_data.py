@@ -29,6 +29,12 @@ import traceback
 bus = SMBus(1)
 bme280 = BME280(i2c_dev=bus)
 
+def get_serial_number():
+    with open('/proc/cpuinfo', 'r') as f:
+        for line in f:
+            if line[0:6] == 'Serial':
+                return line.split(":")[1].strip()
+
 def get_cpu_temperature() -> float:
     """
     Gets CPU temperature
@@ -74,12 +80,13 @@ def main():
             time.sleep(1)
         except:
             print(traceback.format_exc())
-    #TODO Add string value specifing the sensor
+    sensor_id = "raspi-" + get_serial_number()
     # mymeasurement,tag1=tag1,tag2=tag2 fieldA="aaa",fieldB="bbb
-    print("sensor_temperature temperature={:.2f}".format(temperature))
-    print("sensor_pressure pressure={:.2f}".format(pressure))
-    print("sensor_humidity humidity={:.2f}".format(humidity))
-    print("sensor_light light={:.2f},proximity={:.2f}".format(lux,prox))
+    print("sensor_temperature,sensor_id={} temperature={:.2f}".format(sensor_id, temperature))
+    print("sensor_pressure,sensor_id={} pressure={:.2f}".format(sensor_id, pressure))
+    print("sensor_humidity,sensor_id={} humidity={:.2f}".format(sensor_id, humidity))
+    print("sensor_light,sensor_id={} light={:.2f},proximity={:.2f}".format(sensor_id, lux,prox))
+
 
 
 if __name__ == "__main__":
