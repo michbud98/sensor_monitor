@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 from pages.views import home_view
-from show_values.views import show_basic_temp_values
+from controller.views import show_basic_temp_values
 
 urlpatterns = [
     path('basic_values/', show_basic_temp_values, name='basic_values'),
