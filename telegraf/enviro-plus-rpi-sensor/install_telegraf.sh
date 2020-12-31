@@ -83,8 +83,11 @@ usage()
 	echo "install_telegraf.sh [-dh]"
 }
 
-while getopts dh Opt; do
+while getopts cdh Opt; do
   case "$Opt" in
+	c) echo "Installing configuration and necessary files"
+		install_configuration
+		exit 0 ;;
     d)  DEBUG=1 ;;
     h)  usage
         exit 0 ;;
@@ -97,5 +100,4 @@ shift `expr $OPTIND - 1`
 install_telegraf
 # Install telegraf configuration and scripts at /etc/telegraf
 install_configuration
-
 

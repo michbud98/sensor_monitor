@@ -4,6 +4,13 @@ import sys
 import time
 import getopt
 
+try:
+    # Transitional fix for breaking change in LTR559
+    from ltr559 import LTR559
+    ltr559 = LTR559()
+except ImportError:
+    import ltr559
+
 from bme280 import BME280
 
 try:
@@ -61,18 +68,21 @@ def main():
             temperature = get_compensated_temperature()
             pressure = bme280.get_pressure()
             humidity = bme280.get_humidity()
+            lux = ltr559.get_lux()
+            prox = ltr559.get_proximity()
             i += 1
             time.sleep(1)
         except:
             print(traceback.format_exc())
     #TODO Add string value specifing the sensor
-    print("sensor_temperature temperature={}".format(temperature))
-    print("sensor_pressure pressure={}".format(pressure))
-    print("sensor_humidity humidity={}".format(humidity))
+    # mymeasurement,tag1=tag1,tag2=tag2 fieldA="aaa",fieldB="bbb
+    print("sensor_temperature temperature={:.2f}".format(temperature))
+    print("sensor_pressure pressure={:.2f}".format(pressure))
+    print("sensor_humidity humidity={:.2f}".format(humidity))
+    print("sensor_light light={:.2f},proximity={:.2f}".format(lux,prox))
 
 
 if __name__ == "__main__":
     main()
-
 
 
