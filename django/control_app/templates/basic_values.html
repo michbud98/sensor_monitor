@@ -2,12 +2,22 @@
 
 {% block content %}
 <h1>Last values collected by sensors</h1>
+<h2>Inside building</h2>
+<div>
+    <p>Temperature: {{ temp_indoor }} °C</p>
+    <p>Pressure: {{ pressure_indoor }} hPa</p>
+    <p>Humidity: {{ humidity_indoors }} %H</p>
+    <p>Light: {{ light_indoors }} Lux</p>
+</div>
 
-<p>Temperature inside building: {{ temp_indoor_result }} °C</p>
-<p>Temperature outside building: {{ temp_outdoor_result }} °C</p>
-<p>Light inside building: {{ light_indoors_result }} Lux</p>
+<h2>Outside building</h2>
+<div>
+    <p>Temperature: {{ temp_outdoor }} °C</p>
+    <p>Pressure: {{ pressure_outdoors }} hPa</p>
+    <p>Humidity: {{ humidity_outdoors }} %H</p>
+</div>
 
-<p><p>
+
 <p>If you want to see historical values, visit
     <a href="http://grafanalab.westus.cloudapp.azure.com:3000/">grafana website</a>.
 </p>
