@@ -1,10 +1,16 @@
 {% extends 'base.html' %} 
 
 {% block content %}
-<h1>Basic temperature values</h1>
+<h1>Last values collected by sensors</h1>
 
 <p>Temperature inside building: {{ temp_indoor_result }} °C</p>
 <p>Temperature outside building: {{ temp_outdoor_result }} °C</p>
 <p>Light inside building: {{ light_indoors_result }} Lux</p>
+
+<p><p>
+<p>If you want to see historical values, visit
+    <a href="http://grafanalab.westus.cloudapp.azure.com:3000/">grafana website</a>.
+</p>
+
 
 {% endblock %}
