@@ -11,20 +11,26 @@ client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
 
 query_api = client.query_api()
 
-indoors_query = 'from(bucket: "Sensor_data")\
-  |> range(start: -1h)\
-  |> filter(fn: (r) => r["_measurement"] == "sensor_temperature")\
-  |> filter(fn: (r) => r["_field"] == "temperature")\
-  |> filter(fn: (r) => r["host"] == "raspberrypi")\
-  |> last()'
+# indoors_query = 'from(bucket: "Sensor_data")\
+#   |> range(start: -1h)\
+#   |> filter(fn: (r) => r["_measurement"] == "sensor_temperature")\
+#   |> filter(fn: (r) => r["_field"] == "temperature")\
+#   |> filter(fn: (r) => r["host"] == "raspberrypi")\
+#   |> last()'
 
-outdoors_query= 'from(bucket: "Sensor_data")\
-  |> range(start: -1h)\
-  |> filter(fn: (r) => r["_measurement"] == "sensor_temperature")\
-  |> filter(fn: (r) => r["_field"] == "temperature")\
-  |> filter(fn: (r) => r["host"] == "telegraf-docker")\
-  |> last()'
+# outdoors_query= 'from(bucket: "Sensor_data")\
+#   |> range(start: -1h)\
+#   |> filter(fn: (r) => r["_measurement"] == "sensor_temperature")\
+#   |> filter(fn: (r) => r["_field"] == "temperature")\
+#   |> filter(fn: (r) => r["host"] == "telegraf-docker")\
+#   |> last()'
 
+# light_indoors_query= 'from(bucket: "Sensor_data")\
+#     |> range(start: -1h)\
+#     |> filter(fn: (r) => r["_measurement"] == "sensor_light")\
+#     |> filter(fn: (r) => r["_field"] == "light")\
+#     |> filter(fn: (r) => r["host"] == "raspberrypi")\
+#     |> last()'
 
 
 def query_data_from_influxdb(query) -> List[tuple]:
@@ -36,4 +42,4 @@ def query_data_from_influxdb(query) -> List[tuple]:
 
   return results
 
-
+# print(query_data_from_influxdb(light_indoors_query))
