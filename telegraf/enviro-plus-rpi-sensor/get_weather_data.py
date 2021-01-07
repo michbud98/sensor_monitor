@@ -71,7 +71,8 @@ def main():
     # This gets data after 3 cycles each with 1 second waiting time
     while i <= 2:
         try:
-            temperature = get_compensated_temperature()
+            temperature = bme280.get_temperature()
+            temperature_compensated = get_compensated_temperature()
             pressure = bme280.get_pressure()
             humidity = bme280.get_humidity()
             lux = ltr559.get_lux()
@@ -82,7 +83,7 @@ def main():
             print(traceback.format_exc())
     sensor_id = "raspi-" + get_serial_number()
     # mymeasurement,tag1=tag1,tag2=tag2 fieldA="aaa",fieldB="bbb
-    print("sensor_temperature,sensor_id={} temperature={:.2f}".format(sensor_id, temperature))
+    print("sensor_temperature,sensor_id={} temperature={:.2f},temperature_compensated={:.2f}".format(sensor_id, temperature, temperature_compensated))
     print("sensor_pressure,sensor_id={} pressure={:.2f}".format(sensor_id, pressure))
     print("sensor_humidity,sensor_id={} humidity={:.2f}".format(sensor_id, humidity))
     print("sensor_light,sensor_id={} light={:.2f},proximity={:.2f}".format(sensor_id, lux,prox))
