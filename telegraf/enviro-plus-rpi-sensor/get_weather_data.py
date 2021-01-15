@@ -29,11 +29,13 @@ import traceback
 bus = SMBus(1)
 bme280 = BME280(i2c_dev=bus)
 
+
 def get_serial_number():
     with open('/proc/cpuinfo', 'r') as f:
         for line in f:
             if line[0:6] == 'Serial':
                 return line.split(":")[1].strip()
+
 
 def get_cpu_temperature() -> float:
     """
@@ -41,7 +43,8 @@ def get_cpu_temperature() -> float:
 
     :return: Float CPU temperature value
     """
-    process = Popen(['vcgencmd', 'measure_temp'], stdout=PIPE, universal_newlines=True)
+    process = Popen(['vcgencmd', 'measure_temp'],
+                    stdout=PIPE, universal_newlines=True)
     output, _error = process.communicate()
     return float(output[output.index('=') + 1:output.rindex("'")])
 
@@ -49,7 +52,7 @@ def get_cpu_temperature() -> float:
 def get_compensated_temperature() -> float:
     """
     Temporary method compensating heat from CPU
-    
+
     :return: Float compensated temperature value
     """
     comp_factor = 2.25
@@ -62,7 +65,6 @@ def get_compensated_temperature() -> float:
     # Relative humidity: {:05.2f} %
     # """.format(temperature, pressure, humidity))
     return comp_temp
-
 
 
 def main():
@@ -83,14 +85,13 @@ def main():
             print(traceback.format_exc())
     sensor_id = "raspi-" + get_serial_number()
     # mymeasurement,tag1=tag1,tag2=tag2 fieldA="aaa",fieldB="bbb
-    print("sensor_temperature,sensor_id={} temperature={:.2f},temperature_compensated={:.2f}".format(sensor_id, temperature, temperature_compensated))
+    print("sensor_temperature,sensor_id={} temperature={:.2f},temperature_compensated={:.2f}".format(
+        sensor_id, temperature, temperature_compensated))
     print("sensor_pressure,sensor_id={} pressure={:.2f}".format(sensor_id, pressure))
     print("sensor_humidity,sensor_id={} humidity={:.2f}".format(sensor_id, humidity))
-    print("sensor_light,sensor_id={} light={:.2f},proximity={:.2f}".format(sensor_id, lux,prox))
-
+    print("sensor_light,sensor_id={} light={:.2f},proximity={:.2f}".format(
+        sensor_id, lux, prox))
 
 
 if __name__ == "__main__":
     main()
-
-
