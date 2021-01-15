@@ -11,8 +11,6 @@ client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
 
 query_api = client.query_api()
 
-
-
 # light_indoors_query= 'from(bucket: "Sensor_data")\
 #     |> range(start: -1h)\
 #     |> filter(fn: (r) => r["_measurement"] == "sensor_light")\

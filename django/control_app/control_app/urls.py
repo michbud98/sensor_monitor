@@ -17,10 +17,10 @@ from django.contrib import admin
 from django.urls import path
 
 from pages.views import home_view
-from controller.views import show_basic_temp_values
+from controller.views import show_basic_values
 
 urlpatterns = [
-    path('basic_values/', show_basic_temp_values, name='basic_values'),
+    path('basic_values/', show_basic_values, name='basic_values'),
     path('', home_view, name='home'),
     path('admin/', admin.site.urls),
 ]

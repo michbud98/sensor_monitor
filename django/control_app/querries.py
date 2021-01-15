@@ -35,13 +35,16 @@ def last_indoors_pressure():
 
 # print("Last indoors pressure {}".format(last_indoors_pressure()))
 
-# TODO ADD SENSOR TO MEASURE THIS
-# pressure_outdoors_querry = 'from(bucket: "Sensor_data")\
-#     |> range(start: -1h)\
-#     |> filter(fn: (r) => r["_measurement"] == "sensor_pressure")\
-#     |> filter(fn: (r) => r["_field"] == "pressure")\
-#     |> filter(fn: (r) => r["host"] == "raspberrypi")\
-#     |> last()'
+def last_outdoors_pressure():
+    pressure_outdoors_querry = 'from(bucket: "Sensor_data")\
+        |> range(start: -1h)\
+        |> filter(fn: (r) => r["_measurement"] == "sensor_pressure")\
+        |> filter(fn: (r) => r["_field"] == "pressure")\
+        |> filter(fn: (r) => r["host"] == "telegraf-docker")\
+        |> last()'
+    return query_data_from_influxdb(pressure_outdoors_querry)[0][1]
+
+print("Last outdoors pressure {}".format(last_outdoors_pressure()))
 
 def last_indoors_humidity():
     humidity_indoors_querry = 'from(bucket: "Sensor_data")\
@@ -54,13 +57,16 @@ def last_indoors_humidity():
 
 # print("Last indoors humidity {}".format(last_indoors_humidity()))
 
-# TODO This shows always 100% because of damaged sensor
-# humidity_outdoors_querry = 'from(bucket: "Sensor_data")\
-#     |> range(start: -1h)\
-#     |> filter(fn: (r) => r["_measurement"] == "sensor_humidity")\
-#     |> filter(fn: (r) => r["_field"] == "humidity")\
-#     |> filter(fn: (r) => r["host"] == "telegraf-docker")\
-#     |> last()'
+def last_outdoors_humidity():
+    humidity_outdoors_querry = 'from(bucket: "Sensor_data")\
+        |> range(start: -1h)\
+        |> filter(fn: (r) => r["_measurement"] == "sensor_humidity")\
+        |> filter(fn: (r) => r["_field"] == "humidity")\
+        |> filter(fn: (r) => r["host"] == "telegraf-docker")\
+        |> last()'
+    return query_data_from_influxdb(humidity_outdoors_querry)[0][1]
+
+print("Last outdoors humidity {}".format(last_outdoors_humidity()))
 
 def last_indoors_light():
     light_indoors_query= 'from(bucket: "Sensor_data")\
