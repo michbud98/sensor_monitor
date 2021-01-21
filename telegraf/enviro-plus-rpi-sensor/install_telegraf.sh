@@ -80,11 +80,14 @@ install_configuration()
 # Prints help
 usage()
 {
-	echo "install_telegraf.sh [-dh]"
+	echo "install_telegraf.sh [-dh] [c] <copy conf files to /var/log/telegraf> [i] install telegraf"
 }
 
-while getopts cdh Opt; do
+while getopts cdhi Opt; do
   case "$Opt" in
+	i) echo "Installing telegraf"
+		install_telegraf
+		exit 0 ;;
 	c) echo "Installing configuration and necessary files"
 		install_configuration
 		exit 0 ;;
