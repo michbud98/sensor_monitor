@@ -37,22 +37,22 @@ install_configuration()
 	fi
 
 	echo "Placing custom python script to telegraf config dir"
-	cp get_weather_data.py /etc/telegraf/
+	cp get_sensor_data_enviro.py /etc/telegraf/
 	RC=$?	
 	if [ $RC -ne 0 ]; then
 		echo "ERROR: Cannot place python script in telegraf config directory /etc/telegraf"
 	else
-		echo "SUCCESS: get_weather_data.py placed in /etc/telegraf/get_weather_data.py"
+		echo "SUCCESS: get_sensor_data_enviro.py placed in /etc/telegraf/get_sensor_data_enviro.py"
 	fi
 
-	echo "Changing get_weather_data.py ownership to pi"
-	chown pi /etc/telegraf/get_weather_data.py && chgrp pi /etc/telegraf/get_weather_data.py
+	echo "Changing get_sensor_data_enviro.py ownership to pi"
+	chown pi /etc/telegraf/get_sensor_data_enviro.py && chgrp pi /etc/telegraf/get_sensor_data_enviro.py
 	RC=$?
 	
 	if [ $RC -ne 0 ]; then
-		echo "ERROR: Cannot change ownership of get_weather_data.py to user pi"
+		echo "ERROR: Cannot change ownership of get_sensor_data_enviro.py to user pi"
 	else	
-		echo "SUCCESS: Ownership of file get_weather_data changed to user pi"
+		echo "SUCCESS: Ownership of file get_sensor_data_enviro changed to user pi"
 	fi
 	
 	echo "Creating log file at /var/log/telegraf"
