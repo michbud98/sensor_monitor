@@ -7,7 +7,7 @@ def last_indoors_temperature():
     |> range(start: -1h)\
     |> filter(fn: (r) => r["_measurement"] == "sensor_temperature")\
     |> filter(fn: (r) => r["_field"] == "temperature")\
-    |> filter(fn: (r) => r["host"] == "raspberrypi")\
+    |> filter(fn: (r) => r["host"] == "rpizero2")\
     |> last()'
     return query_data_from_influxdb(temperature_indoors_query)[0][1]
 
@@ -29,7 +29,7 @@ def last_indoors_pressure():
         |> range(start: -1h)\
         |> filter(fn: (r) => r["_measurement"] == "sensor_pressure")\
         |> filter(fn: (r) => r["_field"] == "pressure")\
-        |> filter(fn: (r) => r["host"] == "raspberrypi")\
+        |> filter(fn: (r) => r["host"] == "rpizero2")\
         |> last()'
     return query_data_from_influxdb(pressure_indoors_query)[0][1]
 
@@ -51,7 +51,7 @@ def last_indoors_humidity():
         |> range(start: -1h)\
         |> filter(fn: (r) => r["_measurement"] == "sensor_humidity")\
         |> filter(fn: (r) => r["_field"] == "humidity")\
-        |> filter(fn: (r) => r["host"] == "raspberrypi")\
+        |> filter(fn: (r) => r["host"] == "rpizero2")\
         |> last()'
     return query_data_from_influxdb(humidity_indoors_querry)[0][1]
 
@@ -73,7 +73,7 @@ def last_indoors_light():
         |> range(start: -1h)\
         |> filter(fn: (r) => r["_measurement"] == "sensor_light")\
         |> filter(fn: (r) => r["_field"] == "light")\
-        |> filter(fn: (r) => r["host"] == "raspberrypi")\
+        |> filter(fn: (r) => r["host"] == "rpizero2")\
         |> last()'
     return query_data_from_influxdb(light_indoors_query)[0][1]
 

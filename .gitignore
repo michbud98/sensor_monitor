@@ -8,3 +8,4 @@
 /telegraf/nodemcu/telegraf_docker_my.conf
 telegraf_sensor_data_my.conf
 db.sqlite3
+secret_key.txt
