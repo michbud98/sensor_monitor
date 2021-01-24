@@ -11,7 +11,7 @@ def last_indoors_temperature():
     |> last()'
     return query_data_from_influxdb(temperature_indoors_query)[0][1]
 
-# print("Last indoors temperature {}".format(last_indoors_temperature()))
+#print("Last indoors temperature {}".format(last_indoors_temperature()))
 
 def last_outdoors_temperature():
     temperature_outdoors_query= 'from(bucket: "Sensor_data")\
@@ -44,7 +44,7 @@ def last_outdoors_pressure():
         |> last()'
     return query_data_from_influxdb(pressure_outdoors_querry)[0][1]
 
-print("Last outdoors pressure {}".format(last_outdoors_pressure()))
+#print("Last outdoors pressure {}".format(last_outdoors_pressure()))
 
 def last_indoors_humidity():
     humidity_indoors_querry = 'from(bucket: "Sensor_data")\
@@ -66,7 +66,7 @@ def last_outdoors_humidity():
         |> last()'
     return query_data_from_influxdb(humidity_outdoors_querry)[0][1]
 
-print("Last outdoors humidity {}".format(last_outdoors_humidity()))
+#print("Last outdoors humidity {}".format(last_outdoors_humidity()))
 
 def last_indoors_light():
     light_indoors_query= 'from(bucket: "Sensor_data")\

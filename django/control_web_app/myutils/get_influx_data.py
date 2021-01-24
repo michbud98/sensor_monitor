@@ -1,10 +1,15 @@
+import os
+from pathlib import Path
+
 import influxdb_client
 from typing import Dict, List, Tuple
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 bucket = "Sensor_data"
 org = "swiftblade1982@gmail.com"
-# TODO Use file to read token from influx_cloud_token.txt
-token = ""
+with open(os.path.join(BASE_DIR,"secrets/influx_cloud_token.txt")) as f:
+    token = f.read().strip()
 # Store the URL of your InfluxDB instance
 url="https://eu-central-1-1.aws.cloud2.influxdata.com"
 
