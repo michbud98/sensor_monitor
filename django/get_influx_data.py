@@ -3,7 +3,8 @@ from typing import Dict, List, Tuple
 
 bucket = "Sensor_data"
 org = "swiftblade1982@gmail.com"
-token = "IqVLx0CNb_rm4yh1nebq8x70acTQ0XXMKegq5y98c-d9CK7mc5gyh1qrKrwOQHs52TKD2Nt3D3-GdeZl7ZtKaQ=="
+# TODO Use file to read token from influx_cloud_token.txt
+token = ""
 # Store the URL of your InfluxDB instance
 url="https://eu-central-1-1.aws.cloud2.influxdata.com"
 

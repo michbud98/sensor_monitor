@@ -9,3 +9,4 @@
 telegraf_sensor_data_my.conf
 db.sqlite3
 secret_key.txt
+influx_cloud_token.txt
