@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from myutils import querries
+from basic_values import querries
 
 # Create your views here.
 def basic_values_view(request, *args, **kwargs):
