@@ -1,6 +1,6 @@
 # REWORK I think this is not the best implementation, but it will do for now
 
-from get_influx_data import query_data_from_influxdb
+from myutils.get_influx_data import query_data_from_influxdb
 
 def last_indoors_temperature():
     temperature_indoors_query = 'from(bucket: "Sensor_data")\

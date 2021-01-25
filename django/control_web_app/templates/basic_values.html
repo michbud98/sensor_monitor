@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %} 
+<h1>Basic values from sensor</h1>
+<h2>Values from sensor indoors:</h2>
+<ul>
+    <li>Temperature: {{ temperature_indoors }} °C</li>
+    <li>Pressure: {{ pressure_indoors }} HPa</li>
+    <li>Humidity: {{ humidity_indoors }} %</li>
+</ul>
+<h2>Values from outdoors:</h2>
+<ul>
+    <li>Temperature: {{ temperature_outdoors }} °C</li>
+    <li>Pressure: {{ pressure_outdoors }} HPa</li>
+    <li>Humidity: {{ humidity_outdoors }} %</li>
+</ul>
+<p>For historical values visit <a href="grafanalab.westus.cloudapp.azure.com:3000">grafana website</a></p>
+{% endblock %}
+
