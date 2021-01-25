@@ -32,6 +32,23 @@ def query_data_from_influxdb(query: str) -> List[tuple]:
             results.append((record.get_field(), record.get_value()))
     return results
 
+
+def query_all_tags() -> List[str]:
+    tag_query = 'import "influxdata/influxdb/v1"\
+  v1.tagValues(\
+      bucket: "Sensor_data",\
+      tag: "sensor_id",\
+      predicate: (r) => true,\
+      start: -1y\
+  )'
+    result = client.query_api().query(org=org, query=tag_query)
+    results = []
+    for table in result:
+        for record in table.records:
+            results.append(record.get_value())
+    return results
+
+
 def main():
     query = 'from(bucket: "Sensor_data")\
     |> range(start: -1h)\
@@ -39,6 +56,7 @@ def main():
     |> filter(fn: (r) => r["_field"] == "temperature")\
     |> filter(fn: (r) => r["host"] == "rpizero2")'
     print(query_data_from_influxdb(query))
+    print(query_all_tags())
 
 
 if __name__ == "__main__":
