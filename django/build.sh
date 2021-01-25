@@ -1,0 +1,1 @@
+docker build -t michbud98/control_web_app .
