@@ -18,9 +18,11 @@ from django.urls import path
 
 from main_menu.views import home_view
 from basic_values.views import basic_values_view
+from room_control.views import sensor_list_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view, name='home'),
-    path('basic_values/', basic_values_view, name='basic_values')
+    path('basic_values/', basic_values_view, name='basic_values'),
+    path('sensor_list/', sensor_list_view, name='sensor_list'),
 ]
