@@ -11,3 +11,4 @@ db.sqlite3
 secret_key.txt
 influx_cloud_token.txt
 __pycache__
+postgres

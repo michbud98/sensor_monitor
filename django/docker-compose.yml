@@ -7,11 +7,14 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - $PWD/postgres:/var/lib/postgresql/data/pgdata
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/code
+      - $PWD/control_web_app:/app
     ports:
       - "8000:8000"
     depends_on:
