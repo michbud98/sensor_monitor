@@ -9,5 +9,4 @@ def sensor_list_view(request, *args, **kwargs):
     }
     return render(request, "sensor_list.html", my_context)
 
-    }
-    return render(request, "sensor_list.html", my_context)
+    
