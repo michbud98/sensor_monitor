@@ -2,9 +2,19 @@
 
 {% block content %} 
 <h1>This is HTML for sensor list</h1>
+<h2>Sensor without set location:</h2>
 <ul>
-    {% for sensor_id in sensor_id_list %}
-    <li>{{ sensor_id }} </li>
+    {% for sensor_id in sensor_id_list_nonset %}
+    <li>Sensor_id: {{ sensor_id }}</li>
+    {% endfor %}
+</ul>
+
+<h2>Sensors with set location:</h2>
+<ul>
+    {% for sensor_id in sensor_id_list_set %}
+    <li>Sensor_id: {{ sensor_id.sensor_id }} 
+        Location: {{ sensor_id.location }}  
+        Room: {{ sensor_id.room }}</li>
     {% endfor %}
 </ul>
 {% endblock %}

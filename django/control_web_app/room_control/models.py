@@ -2,7 +2,10 @@ from django.db import models
 
 # Create your models here.
 class Sensor(models.Model):
-    sensor_id = models.CharField(max_length=30)
-    location = models.CharField(max_length=30)
-    room = models.CharField(max_length=30,blank=True, null=True)
+    sensor_id = models.CharField(max_length=30, unique=True)
+    location = models.CharField(max_length=30, default="nonset")
+    room = models.CharField(max_length=30, default="nonset")
     description = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.sensor_id
