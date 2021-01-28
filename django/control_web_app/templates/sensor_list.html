@@ -2,6 +2,10 @@
 
 {% block content %} 
 <h1>This is HTML for sensor list</h1>
-<p>{{ sensor_id_list }}</p>
+<ul>
+    {% for sensor_id in sensor_id_list %}
+    <li>{{ sensor_id }} </li>
+    {% endfor %}
+</ul>
 {% endblock %}
 
