@@ -47,6 +47,15 @@ def query_val_from_db(query: str) -> List[tuple]:
             results.append(record.get_value())
     return results
 
+def query_all_tag_values(tag):
+    tag_query = "import \"influxdata/influxdb/v1\"\
+    v1.tagValues(\
+      bucket: \"Sensor_data\",\
+      tag: \"{}\",\
+      predicate: (r) => true,\
+      start: -1y)".format(tag)
+    return query_val_from_db(tag_query)
+
 
 def main():
     # query = 'from(bucket: "Sensor_data")\
