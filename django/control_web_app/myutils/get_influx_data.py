@@ -33,14 +33,13 @@ def query_field_val_from_db(query: str) -> List[tuple]:
     return results
 
 
-def query_all_tags() -> List[str]:
-    tag_query = 'import "influxdata/influxdb/v1"\
-  v1.tagValues(\
-      bucket: "Sensor_data",\
-      tag: "sensor_id",\
-      predicate: (r) => true,\
-      start: -1y)'
-    result = client.query_api().query(org=org, query=tag_query)
+def query_val_from_db(query: str) -> List[tuple]:
+    """
+    Queries Measurement value from InfluxDB database
+    :param query: Query which specifies data we want to get from InfluxDB (uses Flux)
+    :return: List of tuples (Measurement value)
+    """
+    result = client.query_api().query(org=org, query=query)
     results = []
     for table in result:
         for record in table.records:
@@ -54,8 +53,14 @@ def main():
     |> filter(fn: (r) => r["_measurement"] == "sensor_temperature")\
     |> filter(fn: (r) => r["_field"] == "temperature")\
     |> filter(fn: (r) => r["host"] == "rpizero2")'
-    print(query_data_from_influxdb(query))
-    print(query_all_tags())
+    tag_query = 'import "influxdata/influxdb/v1"\
+    v1.tagValues(\
+      bucket: "Sensor_data",\
+      tag: "sensor_id",\
+      predicate: (r) => true,\
+      start: -1y)'
+    print(query_field_val_from_db(query))
+    print(query_val_from_db(tag_query))
 
 
 if __name__ == "__main__":

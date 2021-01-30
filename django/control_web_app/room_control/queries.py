@@ -1,4 +1,4 @@
-from myutils.get_influx_data import query_field_val_from_db, query_all_tags
+from myutils.get_influx_data import query_field_val_from_db, query_val_from_db
 
 from .models import Sensor
 
@@ -19,3 +19,14 @@ def sort_sensor_ids(sensor_id_list: List[str]) -> Tuple[List[str], List[Sensor]]
             sensor_id_nonset.append(sensor_id)
 
     return sensor_id_nonset, sensor_id_set
+
+
+def query_all_tags():
+    tag_query = 'import "influxdata/influxdb/v1"\
+    v1.tagValues(\
+      bucket: "Sensor_data",\
+      tag: "sensor_id",\
+      predicate: (r) => true,\
+      start: -1y)'
+    return query_val_from_db(tag_query)
+
