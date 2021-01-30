@@ -19,9 +19,9 @@ client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
 query_api = client.query_api()
 
 
-def query_data_from_influxdb(query: str) -> List[tuple]:
+def query_field_val_from_db(query: str) -> List[tuple]:
     """
-    Queries data from InfluxDB database
+    Queries Measurement field and value from InfluxDB database
     :param query: Query which specifies data we want to get from InfluxDB (uses Flux)
     :return: List of tuples (Measurement field name, Measurement value)
     """
@@ -39,8 +39,7 @@ def query_all_tags() -> List[str]:
       bucket: "Sensor_data",\
       tag: "sensor_id",\
       predicate: (r) => true,\
-      start: -1y\
-  )'
+      start: -1y)'
     result = client.query_api().query(org=org, query=tag_query)
     results = []
     for table in result:

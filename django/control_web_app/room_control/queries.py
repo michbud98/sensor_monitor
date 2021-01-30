@@ -1,4 +1,4 @@
-from myutils.get_influx_data import query_data_from_influxdb, query_all_tags
+from myutils.get_influx_data import query_field_val_from_db, query_all_tags
 
 from .models import Sensor
 
