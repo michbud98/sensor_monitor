@@ -30,3 +30,19 @@ def query_all_tags():
       start: -1y)'
     return query_val_from_db(tag_query)
 
+
+def add_hostname_to_sensor_ids(sensor_id_list: List[str]):
+    sensor_id_hostnames: Dict[str] = {}
+    for sensor_id in sensor_id_list:
+        sensor_id_hostnames[sensor_id] = query_sensor_hostname(sensor_id)
+    return sensor_id_hostnames
+
+def query_sensor_hostname(sensor_id: str):
+    hostname_query = "from(bucket: \"{}\")\
+    |> range(start: -30d)\
+    |> filter(fn: (r) => r.sensor_id == \"{}\")\
+    |> keyValues(keyColumns: [\"host\"])\
+    |> keep(columns: [\"_value\"])\
+    |> group()\
+    |> distinct()".format("Sensor_data", sensor_id)
+    return query_val_from_db(hostname_query)[0]

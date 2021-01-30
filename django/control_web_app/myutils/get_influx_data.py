@@ -6,6 +6,7 @@ from typing import Dict, List, Tuple
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+#TODO Insert these values to querries as variables
 bucket = "Sensor_data"
 org = "swiftblade1982@gmail.com"
 # Gets Influx token from file
@@ -48,19 +49,27 @@ def query_val_from_db(query: str) -> List[tuple]:
 
 
 def main():
-    query = 'from(bucket: "Sensor_data")\
-    |> range(start: -1h)\
-    |> filter(fn: (r) => r["_measurement"] == "sensor_temperature")\
-    |> filter(fn: (r) => r["_field"] == "temperature")\
-    |> filter(fn: (r) => r["host"] == "rpizero2")'
-    tag_query = 'import "influxdata/influxdb/v1"\
-    v1.tagValues(\
-      bucket: "Sensor_data",\
-      tag: "sensor_id",\
-      predicate: (r) => true,\
-      start: -1y)'
-    print(query_field_val_from_db(query))
-    print(query_val_from_db(tag_query))
+    # query = 'from(bucket: "Sensor_data")\
+    # |> range(start: -1h)\
+    # |> filter(fn: (r) => r["_measurement"] == "sensor_temperature")\
+    # |> filter(fn: (r) => r["_field"] == "temperature")\
+    # |> filter(fn: (r) => r["host"] == "rpizero2")'
+    # tag_query = 'import "influxdata/influxdb/v1"\
+    # v1.tagValues(\
+    #   bucket: "Sensor_data",\
+    #   tag: "sensor_id",\
+    #   predicate: (r) => true,\
+    #   start: -1y)'
+    hostname_query = "from(bucket: \"{}\")\
+    |> range(start: -30d)\
+    |> filter(fn: (r) => r.sensor_id == \"{}\")\
+    |> keyValues(keyColumns: [\"host\"])\
+    |> keep(columns: [\"_value\"])\
+    |> group()\
+    |> distinct()".format(bucket, "raspi-00000000701fbc12")
+    #print(query_field_val_from_db(query))
+    #print(query_val_from_db(tag_query))
+    print(query_val_from_db(hostname_query))
 
 
 if __name__ == "__main__":
