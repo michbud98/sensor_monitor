@@ -5,7 +5,10 @@
 <h2>Sensor without set location:</h2>
 <ul>
     {% for sensor_id in sensor_id_list_nonset %}
-    <li>Sensor_id: {{ sensor_id }}</li>
+    <li>Sensor_id: {{ sensor_id }}
+        <a href="*">Add location</a> 
+        <a href="*">Sensor info</a>
+    </li>
     {% endfor %}
 </ul>
 
@@ -13,8 +16,12 @@
 <ul>
     {% for sensor_id in sensor_id_list_set %}
     <li>Sensor_id: {{ sensor_id.sensor_id }} 
-        Location: {{ sensor_id.location }}  
-        Room: {{ sensor_id.room }}</li>
+        Location: {{ sensor_id.location }}
+        {% if sensor_id.room != "nonset" %} 
+        Room: {{ sensor_id.room }}
+        {% endif %}
+        <a href="*">Edit location</a> 
+    </li>
     {% endfor %}
 </ul>
 {% endblock %}
