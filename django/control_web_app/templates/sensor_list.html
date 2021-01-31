@@ -20,8 +20,8 @@
     <li>Hostname: {{ hostname_dict|get_item:sensor_id.sensor_id }}
         Sensor_id: {{ sensor_id.sensor_id }} 
         Location: {{ sensor_id.location }}
-        {% if sensor_id.room != "nonset" %} 
-        Room: {{ sensor_id.room }}
+        {% if sensor_id.room %} 
+            Room: {{ sensor_id.room }}
         {% endif %}
         <a href="*">Edit location</a> 
         <a href="*">Sensor info</a>
