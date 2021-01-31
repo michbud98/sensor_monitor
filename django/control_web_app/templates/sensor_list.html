@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
-{% block content %} 
+{% block content %}
 <h1>This is HTML for sensor list</h1>
 <h2>Sensor without set location:</h2>
 <ul>
     {% for sensor_id in sensor_id_list_nonset %}
     <li>
-        Hostname: {{ hostname_dict|get_item:sensor_id }}
         Sensor_id: {{ sensor_id }}
-        <a href="/sensor_create">Add location</a> 
+        Hostname: {{ hostname_dict|get_item:sensor_id }}
+        <a href="/sensor_create">Add location</a>
         <a href="*">Sensor info</a>
     </li>
     {% endfor %}
@@ -17,16 +17,16 @@
 <h2>Sensors with set location:</h2>
 <ul>
     {% for sensor_id in sensor_id_list_set %}
-    <li>Hostname: {{ hostname_dict|get_item:sensor_id.sensor_id }}
-        Sensor_id: {{ sensor_id.sensor_id }} 
+    <li>
+        Sensor_id: {{ sensor_id.sensor_id }}
+        Hostname: {{ hostname_dict|get_item:sensor_id.sensor_id }}
         Location: {{ sensor_id.location }}
-        {% if sensor_id.room %} 
-            Room: {{ sensor_id.room }}
+        {% if sensor_id.room %}
+        Room: {{ sensor_id.room }}
         {% endif %}
-        <a href="*">Edit location</a> 
+        <a href="*">Edit location</a>
         <a href="*">Sensor info</a>
     </li>
     {% endfor %}
 </ul>
 {% endblock %}
-
