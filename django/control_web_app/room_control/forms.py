@@ -5,10 +5,4 @@ from .models import Sensor
 class Sensor_form(forms.ModelForm):
     class Meta:
         model = Sensor
-        fields = [
-            "sensor_id",
-            "hostname",
-            "location",
-            "room",
-            "description"
-        ]
+        fields = '__all__' # uses all fields of model
