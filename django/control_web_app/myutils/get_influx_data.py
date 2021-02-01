@@ -19,10 +19,13 @@ client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
 
 query_api = client.query_api()
 
+def get_bucket():
+    return bucket
 
 def query_field_val_from_db(query: str) -> List[tuple]:
     """
     Queries Measurement field and value from InfluxDB database
+
     :param query: Query which specifies data we want to get from InfluxDB (uses Flux)
     :return: List of tuples (Measurement field name, Measurement value)
     """
@@ -34,9 +37,10 @@ def query_field_val_from_db(query: str) -> List[tuple]:
     return results
 
 
-def query_val_from_db(query: str) -> List[tuple]:
+def query_val_from_db(query: str) -> List[str]:
     """
     Queries Measurement value from InfluxDB database
+
     :param query: Query which specifies data we want to get from InfluxDB (uses Flux)
     :return: List of tuples (Measurement value)
     """
@@ -47,7 +51,13 @@ def query_val_from_db(query: str) -> List[tuple]:
             results.append(record.get_value())
     return results
 
-def query_all_tag_values(tag):
+def query_all_tag_values(tag) -> List[str]:
+    """
+    Queries all values of selected tag
+
+    :param tag: Tag for which we want all values
+    :return: List of all values for selected Tag
+    """
     tag_query = "import \"influxdata/influxdb/v1\"\
     v1.tagValues(\
       bucket: \"Sensor_data\",\
@@ -79,6 +89,7 @@ def main():
     #print(query_field_val_from_db(query))
     #print(query_val_from_db(tag_query))
     print(query_val_from_db(hostname_query))
+    print(query_all_tag_values("sensor_id"))
 
 
 if __name__ == "__main__":

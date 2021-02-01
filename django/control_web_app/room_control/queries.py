@@ -1,5 +1,5 @@
 from myutils.get_influx_data import query_field_val_from_db, \
-    query_val_from_db, query_all_tag_values
+    query_val_from_db, query_all_tag_values, get_bucket
 
 from .models import Sensor
 
@@ -8,8 +8,11 @@ from typing import Dict, List, Tuple
 
 def sort_sensor_ids(sensor_id_list: List[str]) -> Tuple[List[str], List[Sensor]]:
     """
+    Sorts sensor ids between two lists based on their availability in the django connected database. 
+    If sensor is in the database it has set location.
+
     :param sensor_id_list: List of sensor_ids collected from Influxdb
-    :return: Tuple with list os sensor_ids with set room and list of sensor ids without set room
+    :return: Tuple with list of sensor ids without set location and list of class Sensor that contains sensor with set location (in database)
     """
     sensor_id_nonset = []
     sensor_id_set = []
@@ -22,7 +25,11 @@ def sort_sensor_ids(sensor_id_list: List[str]) -> Tuple[List[str], List[Sensor]]
     return sensor_id_nonset, sensor_id_set
 
 
-def add_hostname_to_sensor_ids(sensor_id_list: List[str]):
+def create_hostname_dict(sensor_id_list: List[str]) -> Dict[str, str]:
+    """
+    :param sensor_id_list: List of sensor_ids collected from Influxdb
+    :return: Dictionary with sensor ids as keys and hostnames as values
+    """
     sensor_id_hostnames: Dict[str] = {}
     for sensor_id in sensor_id_list:
         sensor_id_hostnames[sensor_id] = query_sensor_hostname(sensor_id)
@@ -36,5 +43,5 @@ def query_sensor_hostname(sensor_id: str):
     |> keyValues(keyColumns: [\"host\"])\
     |> keep(columns: [\"_value\"])\
     |> group()\
-    |> distinct()".format("Sensor_data", sensor_id)
+    |> distinct()".format(get_bucket(), sensor_id)
     return query_val_from_db(hostname_query)[0]
