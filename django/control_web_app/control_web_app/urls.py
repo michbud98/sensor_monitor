@@ -25,5 +25,6 @@ urlpatterns = [
     path('', home_view, name='home'),
     path('basic_values/', basic_values_view, name='basic_values'),
     path('sensor_list/', sensor_list_view, name='sensor_list'),
-    path('sensor_create/<str:sensor_id>/', sensor_create_view, name='sensor_create'),
+    path('sensor_create/<str:sensor_id>', sensor_create_view, name='sensor_create'),
+    path('sensor_create/<str:sensor_id>/<str:hostname>', sensor_create_view, name='sensor_create'),
 ]
