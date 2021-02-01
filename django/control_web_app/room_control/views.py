@@ -22,15 +22,15 @@ def sensor_list_view(request):
     }
     return render(request, "sensor_list.html", my_context)
 
-def sensor_create_view(request, *args, **kwargs):
+def sensor_create_view(request, sensor_id):
+    initial_data = { "sensor_id": sensor_id }
     if request.method == "POST":
         form = Sensor_form(request.POST)
-
         if form.is_valid():
             form.save()
             return redirect(sensor_list_view)
     else:
-        form = Sensor_form()
+        form = Sensor_form(initial=initial_data)
         my_context ={
             'form':form,
         }
