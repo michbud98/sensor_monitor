@@ -4,7 +4,7 @@ from django.db import models
 class Sensor(models.Model):
     sensor_id = models.CharField(max_length=30, unique=True)
     hostname = models.CharField(max_length=30, blank=True, null=True)
-    location = models.CharField(max_length=30, default="nonset")
+    location = models.CharField(max_length=10)
     room = models.CharField(max_length=30, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
 
