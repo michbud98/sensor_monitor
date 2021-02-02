@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.template.defaulttags import register
 from django.shortcuts import redirect
 
-from room_control import queries
+from sensor_control import queries
 from .models import Sensor
 from .forms import Sensor_form
 
