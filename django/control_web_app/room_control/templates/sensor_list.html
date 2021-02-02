@@ -24,7 +24,7 @@
         {% if sensor_id.room %}
         Room: {{ sensor_id.room }}
         {% endif %}
-        <a href="">Edit location</a>
+        <a href="{% url 'sensor_update' sensor_id=sensor_id.sensor_id %}">Edit</a>
         <a href="{% url 'sensor_detail' sensor_id=sensor_id.sensor_id %}">Sensor info</a>
         <a href="{% url 'sensor_remove' sensor_id=sensor_id.sensor_id %}">Sensor remove room</a>
     </li>

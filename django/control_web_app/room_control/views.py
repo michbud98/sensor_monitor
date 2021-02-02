@@ -37,6 +37,20 @@ def sensor_create_view(request, sensor_id, hostname):
         }
     return render(request, "sensor_create.html", my_context)
 
+def sensor_update_view(request, sensor_id):
+    obj = get_object_or_404(Sensor, sensor_id=sensor_id)
+    form = Sensor_form(request.POST or None, instance=obj)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect(sensor_list_view)
+    if form.is_valid():
+        form.save()
+    context = {
+        'form': form
+    }
+    return render(request, "sensor_create.html", context)
+
 
 def sensor_remove_view(request, sensor_id):
     obj = get_object_or_404(Sensor, sensor_id=sensor_id)
