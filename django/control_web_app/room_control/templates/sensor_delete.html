@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %} 
-<form action="./{{ obj.sensor_id }}" method="POST"> {% csrf_token %}
+<form action="{% url 'sensor_remove' sensor_id=obj.sensor_id %}" method="POST"> {% csrf_token %}
     <h1>Comfirm removal of sensor from location:</h1>
     <p>Sensor_id: {{ obj.sensor_id }}</p>
     <p>Hostname: {{ obj.hostname }}</p>
@@ -9,6 +9,6 @@
     {% if sensor_id.room %}
     <p>Room: {{ obj.room }}</p>
     {% endif %}
-    <p><input type="submit" value="Yes"> <a href="/sensor_list">Cancel</a></p>
+    <p><input type="submit" value="Yes"> <a href="{% url 'sensor_list'%}">Cancel</a></p>
 </form>
 {% endblock %}

@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Sensor(models.Model):
@@ -10,3 +11,6 @@ class Sensor(models.Model):
 
     def __str__(self):
         return self.sensor_id
+
+    def get_absolut_url(self):
+        return reverse("sensor_detail", kwargs={"sensor_id": self.sensor_id})
