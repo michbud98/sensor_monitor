@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %} 
+<!-- TODO Add something like time before next query is available -->
+<h1>
+    {% if obj %} 
+    Sensor {{ obj.sensor_id }}
+    {% else %}
+    Sensor {{ sensor_id }}
+    {% endif %}
+</h1>
+<h2>Sensor information</h2>
+<ul>
+    {% if obj %}
+    <li>{{ obj.hostname }}</li>
+    <li>{{ obj.location }}</li>
+    {% if sensor_id.room %} <li> Room: {{ sensor_id.room }} </li> {% endif %}
+    {% if sensor_id.room %}<li> {{ obj.description }} </li> {% endif %}
+    {% else %}
+    <li>This sensor has no location</li>
+    {% endif %}
+</ul>
+<h2>Last collected values by sensor:</h2>
+<ul>
+    <li>Temperature: {{ temperature }} °C</li>
+    <li>Pressure: {{ pressure }} HPa</li>
+    <li>Humidity: {{ humidity }} %</li>
+</ul>
+<p>For historical values visit <a href="grafanalab.westus.cloudapp.azure.com:3000">grafana website</a></p>
+<p><a href="/sensor_list/">Back to sensor list</a></p>
+{% endblock %}
+

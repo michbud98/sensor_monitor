@@ -45,3 +45,31 @@ def query_sensor_hostname(sensor_id: str):
     |> group()\
     |> distinct()".format(get_bucket(), sensor_id)
     return query_val_from_db(hostname_query)[0]
+
+
+def querry_last_sensor_temp(sensor_id):
+    temperature_query = "from(bucket: \"{}\")\
+        |> range(start: -1h)\
+        |> filter(fn: (r) => r._measurement == \"sensor_temperature\")\
+        |> filter(fn: (r) => r._field == \"temperature\")\
+        |> filter(fn: (r) => r.sensor_id == \"{}\")\
+        |> last()".format(get_bucket(), sensor_id)
+    return query_field_val_from_db(temperature_query)[0][1]
+
+def querry_last_sensor_pressure(sensor_id):
+    temperature_query = "from(bucket: \"{}\")\
+        |> range(start: -1h)\
+        |> filter(fn: (r) => r._measurement == \"sensor_pressure\")\
+        |> filter(fn: (r) => r._field == \"pressure\")\
+        |> filter(fn: (r) => r.sensor_id == \"{}\")\
+        |> last()".format(get_bucket(), sensor_id)
+    return query_field_val_from_db(temperature_query)[0][1]
+
+def querry_last_sensor_humidity(sensor_id):
+    temperature_query = "from(bucket: \"{}\")\
+        |> range(start: -1h)\
+        |> filter(fn: (r) => r._measurement == \"sensor_humidity\")\
+        |> filter(fn: (r) => r._field == \"humidity\")\
+        |> filter(fn: (r) => r.sensor_id == \"{}\")\
+        |> last()".format(get_bucket(), sensor_id)
+    return query_field_val_from_db(temperature_query)[0][1]

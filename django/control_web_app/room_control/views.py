@@ -47,3 +47,25 @@ def sensor_remove_view(request, sensor_id):
         "obj": obj
     }
     return render(request, "sensor_delete.html", my_context)
+
+def sensor_detail_view(request, sensor_id):
+    obj = None
+    try:
+        obj = Sensor.objects.get(sensor_id=sensor_id)
+        temperature = queries.querry_last_sensor_temp(obj.sensor_id)
+        pressure = queries.querry_last_sensor_pressure(obj.sensor_id)
+        humitidy = queries.querry_last_sensor_humidity(obj.sensor_id)
+    except Sensor.DoesNotExist:
+        temperature = queries.querry_last_sensor_temp(sensor_id)
+        pressure = queries.querry_last_sensor_pressure(sensor_id)
+        humitidy = queries.querry_last_sensor_humidity(sensor_id)
+
+    my_context = {
+            "sensor_id": sensor_id,
+            "obj" : obj,
+            "temperature": temperature,
+            "pressure": pressure,
+            "humidity": humitidy
+        }
+    
+    return render(request, "sensor_detail.html", my_context)

@@ -8,8 +8,8 @@
     <li>
         Sensor_id: {{ sensor_id }}
         Hostname: {{ hostname_dict|get_item:sensor_id }}
-        <a href="{% url 'sensor_create' sensor_id=sensor_id  %}/{{hostname_dict|get_item:sensor_id }}">Add location</a>
-        <a href="*">Sensor info</a>
+        <a href="{% url 'sensor_create' sensor_id=sensor_id  %}/{{ hostname_dict|get_item:sensor_id }}">Add location</a>
+        <a href="{% url 'sensor_detail' sensor_id=sensor_id %}">Sensor info</a>
     </li>
     {% endfor %}
 </ul>
@@ -24,9 +24,9 @@
         {% if sensor_id.room %}
         Room: {{ sensor_id.room }}
         {% endif %}
-        <a href="*">Edit location</a>
-        <a href="*">Sensor info</a>
-        <a href="{% url 'sensor_remove' sensor_id=sensor_id.sensor_id  %}">Sensor remove room</a>
+        <a href="">Edit location</a>
+        <a href="{% url 'sensor_detail' sensor_id=sensor_id.sensor_id %}">Sensor info</a>
+        <a href="{% url 'sensor_remove' sensor_id=sensor_id.sensor_id %}">Sensor remove room</a>
     </li>
     {% endfor %}
 </ul>
