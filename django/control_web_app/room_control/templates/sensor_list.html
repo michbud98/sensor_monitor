@@ -26,6 +26,7 @@
         {% endif %}
         <a href="*">Edit location</a>
         <a href="*">Sensor info</a>
+        <a href="{% url 'sensor_remove' sensor_id=sensor_id.sensor_id  %}">Sensor remove room</a>
     </li>
     {% endfor %}
 </ul>

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.template.defaulttags import register
 from django.shortcuts import redirect
 
@@ -23,6 +23,7 @@ def sensor_list_view(request):
     return render(request, "sensor_list.html", my_context)
 
 def sensor_create_view(request, sensor_id, hostname):
+    # TODO Might be a good idea to add some try catch or something like that
     initial_data = { "sensor_id": sensor_id, "hostname": hostname}
     if request.method == "POST":
         form = Sensor_form(request.POST)
@@ -37,3 +38,12 @@ def sensor_create_view(request, sensor_id, hostname):
     return render(request, "sensor_create.html", my_context)
 
 
+def sensor_remove_view(request, sensor_id):
+    obj = get_object_or_404(Sensor, sensor_id=sensor_id)
+    if request.method == "POST":
+        obj.delete()
+        return redirect(sensor_list_view)
+    my_context = {
+        "obj": obj
+    }
+    return render(request, "sensor_delete.html", my_context)
