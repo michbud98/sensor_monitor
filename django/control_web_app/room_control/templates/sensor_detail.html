@@ -12,19 +12,19 @@
 <h2>Sensor information</h2>
 <ul>
     {% if obj %}
-    <li>{{ obj.hostname }}</li>
-    <li>{{ obj.location }}</li>
-    {% if sensor_id.room %} <li> Room: {{ sensor_id.room }} </li> {% endif %}
-    {% if sensor_id.room %}<li> {{ obj.description }} </li> {% endif %}
+        <li><label>Hostname: </label>{{ obj.hostname }}</li>
+        <li><label>Location: </label>{{ obj.location }}</li>
+        {% if obj.room %} <li> <label>Room: </label> Room: {{ sensor_id.room }} </li> {% endif %}
+        {% if obj.description %}<li> <label>Description: </label> {{ obj.description }} </li> {% endif %}
     {% else %}
     <li>This sensor has no location</li>
     {% endif %}
 </ul>
 <h2>Last collected values by sensor:</h2>
 <ul>
-    <li>Temperature: {{ temperature }} °C</li>
-    <li>Pressure: {{ pressure }} HPa</li>
-    <li>Humidity: {{ humidity }} %</li>
+    <li><label>Temperature: </label>{{ temperature }} °C</li>
+    <li><label>Pressure: </label> {{ pressure }} HPa</li>
+    <li><label>Humidity: </label> {{ humidity }} %</li>
 </ul>
 <p>For historical values visit <a href="grafanalab.westus.cloudapp.azure.com:3000">grafana website</a></p>
 <p><a href="{% url 'sensor_list' %}">Back to sensor list</a></p>
