@@ -32,7 +32,7 @@ def main():
         humidity = sensor.data.humidity
 
         sensor_id = "raspi-" + get_serial_number()
-        sensor_type = "bme680" # TODO Make dynamic
+        sensor_type = "BME680" # TODO Make dynamic
         print("sensor_temperature,sensor_id={},sensor_type={} temperature={:.2f}".format(
             sensor_id, sensor_type,temperature))
         print("sensor_pressure,sensor_id={},sensor_type={} pressure={:.2f}".format(sensor_id, sensor_type, pressure))
