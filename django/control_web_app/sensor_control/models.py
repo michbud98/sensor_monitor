@@ -5,6 +5,7 @@ from django.urls import reverse
 class Sensor(models.Model):
     sensor_id = models.CharField(max_length=30, unique=True)
     hostname = models.CharField(max_length=30, blank=True, null=True)
+    sensor_type = models.CharField(max_length=20)
     location = models.CharField(max_length=10)
     room = models.CharField(max_length=30, blank=True, null=True)
     description = models.TextField(blank=True, null=True)

@@ -14,17 +14,19 @@ def get_item(dictionary, key):
 # Create your views here.
 def sensor_list_view(request):
     hostname_dict = queries.create_hostname_dict(queries.query_all_tag_values("sensor_id"))
+    sensor_type_dict = queries.create_sensor_type_dict(queries.query_all_tag_values("sensor_id"))
     unset_list, set_list = queries.sort_sensor_ids(queries.query_all_tag_values("sensor_id"))
     my_context = {
         "hostname_dict" : hostname_dict,
+        "sensor_type_dict" : sensor_type_dict,
         "sensor_id_list_nonset": unset_list,
         "sensor_id_list_set": set_list,
     }
     return render(request, "sensor_list.html", my_context)
 
-def sensor_create_view(request, sensor_id, hostname):
+def sensor_create_view(request, sensor_id, hostname, sensor_type):
     # TODO Might be a good idea to add some try catch or something like that
-    initial_data = { "sensor_id": sensor_id, "hostname": hostname}
+    initial_data = { "sensor_id": sensor_id, "hostname": hostname, "sensor_type": sensor_type}
     if request.method == "POST":
         form = Sensor_form(request.POST)
         if form.is_valid():
@@ -66,13 +68,13 @@ def sensor_detail_view(request, sensor_id):
     obj = None
     try:
         obj = Sensor.objects.get(sensor_id=sensor_id)
-        temperature = queries.querry_last_sensor_temp(obj.sensor_id)
-        pressure = queries.querry_last_sensor_pressure(obj.sensor_id)
-        humitidy = queries.querry_last_sensor_humidity(obj.sensor_id)
+        temperature = queries.query_last_sensor_temp(obj.sensor_id)
+        pressure = queries.query_last_sensor_pressure(obj.sensor_id)
+        humitidy = queries.query_last_sensor_humidity(obj.sensor_id)
     except Sensor.DoesNotExist:
-        temperature = queries.querry_last_sensor_temp(sensor_id)
-        pressure = queries.querry_last_sensor_pressure(sensor_id)
-        humitidy = queries.querry_last_sensor_humidity(sensor_id)
+        temperature = queries.query_last_sensor_temp(sensor_id)
+        pressure = queries.query_last_sensor_pressure(sensor_id)
+        humitidy = queries.query_last_sensor_humidity(sensor_id)
 
     my_context = {
             "sensor_id": sensor_id,

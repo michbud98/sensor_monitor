@@ -46,8 +46,28 @@ def query_sensor_hostname(sensor_id: str):
     |> distinct()".format(get_bucket(), sensor_id)
     return query_val_from_db(hostname_query)[0]
 
+def create_sensor_type_dict(sensor_id_list: List[str]) -> Dict[str, str]:
+    """
+    :param sensor_id_list: List of sensor_ids collected from Influxdb
+    :return: Dictionary with sensor ids as keys and sensor types as values
+    """
+    sensor_type_dict: Dict[str] = {}
+    for sensor_id in sensor_id_list:
+        sensor_type_dict[sensor_id] = query_sensor_type(sensor_id)
+    return sensor_type_dict
 
-def querry_last_sensor_temp(sensor_id):
+def query_sensor_type(sensor_id: str):
+    hostname_query = "from(bucket: \"{}\")\
+    |> range(start: -30d)\
+    |> filter(fn: (r) => r.sensor_id == \"{}\")\
+    |> keyValues(keyColumns: [\"sensor_type\"])\
+    |> keep(columns: [\"_value\"])\
+    |> group()\
+    |> distinct()".format(get_bucket(), sensor_id)
+    return query_val_from_db(hostname_query)[0]
+
+
+def query_last_sensor_temp(sensor_id):
     temperature_query = "from(bucket: \"{}\")\
         |> range(start: -1h)\
         |> filter(fn: (r) => r._measurement == \"sensor_temperature\")\
@@ -56,7 +76,7 @@ def querry_last_sensor_temp(sensor_id):
         |> last()".format(get_bucket(), sensor_id)
     return query_field_val_from_db(temperature_query)[0][1]
 
-def querry_last_sensor_pressure(sensor_id):
+def query_last_sensor_pressure(sensor_id):
     temperature_query = "from(bucket: \"{}\")\
         |> range(start: -1h)\
         |> filter(fn: (r) => r._measurement == \"sensor_pressure\")\
@@ -65,7 +85,7 @@ def querry_last_sensor_pressure(sensor_id):
         |> last()".format(get_bucket(), sensor_id)
     return query_field_val_from_db(temperature_query)[0][1]
 
-def querry_last_sensor_humidity(sensor_id):
+def query_last_sensor_humidity(sensor_id):
     temperature_query = "from(bucket: \"{}\")\
         |> range(start: -1h)\
         |> filter(fn: (r) => r._measurement == \"sensor_humidity\")\
