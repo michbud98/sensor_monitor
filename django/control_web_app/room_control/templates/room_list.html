@@ -1,0 +1,9 @@
+<h1>Room list</h1>
+
+<ul>
+    {% for sensor in indoors_sensors_set %}
+    <li>
+        {{ sensor.room }}
+    </li>
+    {% endfor %}
+</ul>
