@@ -5,6 +5,7 @@
         {% for room in rooms_set %}
         <li>
             {{ room.room_name }}
+            <a href="{% url 'room_update' room_id=room.id %}">Edit</a>
             <a href="{% url 'room_detail' room_id=room.id %}">Detail</a>
             <a href="{% url 'room_remove' room_id=room.id %}">Remove</a>
         </li>
