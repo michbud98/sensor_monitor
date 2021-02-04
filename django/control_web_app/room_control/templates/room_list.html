@@ -1,5 +1,7 @@
-<h1>Room list</h1>
+{% extends "base.html" %}
 
+{% block content %}
+<h1>Room list</h1>
 {% if rooms_set %}
     <ul>
         {% for room in rooms_set %}
@@ -16,3 +18,5 @@
 {% else %}
     <p>There are now rooms in a database. <a href="{% url 'room_create' %}">Please add new rooms.</a></p>
 {% endif %}
+<a href="../">Back to main menu</a>
+{% endblock %}
