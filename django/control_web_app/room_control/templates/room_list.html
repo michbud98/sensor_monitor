@@ -1,9 +1,15 @@
 <h1>Room list</h1>
 
-<ul>
-    {% for sensor in indoors_sensors_set %}
-    <li>
-        {{ sensor.room }}
-    </li>
-    {% endfor %}
-</ul>
+{% if rooms_set %}
+    <ul>
+        {% for room in rooms_set %}
+        <li>
+            {{ room.room_name }}
+        </li>
+        {% endfor %}
+    
+    </ul>
+    <p><a href=""> Add new room </a></p>
+{% else %}
+    <p><a href="">Please create a new rooms</a></p>
+{% endif %}
