@@ -9,7 +9,7 @@
         {% endfor %}
     
     </ul>
-    <p><a href=""> Add new room </a></p>
+    <p><a href="{% url 'room_create' %}">Add new room</a></p>
 {% else %}
-    <p><a href="">Please create a new rooms</a></p>
+    <p>There are now rooms in a database. <a href="{% url 'room_create' %}">Please add new rooms.</a></p>
 {% endif %}
