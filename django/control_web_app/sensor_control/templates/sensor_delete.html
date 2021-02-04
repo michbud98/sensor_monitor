@@ -6,8 +6,8 @@
     <p>Sensor_id: {{ obj.sensor_id }}</p>
     <p>Hostname: {{ obj.hostname }}</p>
     <p>Location: {{ obj.location }}</p>
-    {% if sensor_id.room %}
-    <p>Room: {{ obj.room }}</p>
+    {% if room_name %}
+    <p>Room: {{ room_name }}</p>
     {% endif %}
     <p><input type="submit" value="Yes"> <a href="{% url 'sensor_list'%}">Cancel</a></p>
 </form>

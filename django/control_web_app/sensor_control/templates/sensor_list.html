@@ -24,7 +24,7 @@
         Sensor type: {{ sensor_id.sensor_type }}
         Location: {{ sensor_id.location }}
         {% if sensor_id.room %}
-        Room: {{ sensor_id.room }}
+        Room: <a href="../rooms/{{ sensor_id.room }}">{{ room_dict|get_item:sensor_id.sensor_id }}</a>
         {% endif %}
         <a href="{% url 'sensor_update' sensor_id=sensor_id.sensor_id %}">Edit</a>
         <a href="{% url 'sensor_detail' sensor_id=sensor_id.sensor_id %}">Sensor info</a>

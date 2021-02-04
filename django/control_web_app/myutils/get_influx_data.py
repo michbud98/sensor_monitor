@@ -27,6 +27,7 @@ def query_field_val_from_db(query: str) -> List[tuple]:
     Queries Measurement field and value from InfluxDB database
 
     :param query: Query which specifies data we want to get from InfluxDB (uses Flux)
+    
     :return: List of tuples (Measurement field name, Measurement value)
     """
     result = client.query_api().query(org=org, query=query)
@@ -42,6 +43,7 @@ def query_val_from_db(query: str) -> List[str]:
     Queries Measurement value from InfluxDB database
 
     :param query: Query which specifies data we want to get from InfluxDB (uses Flux)
+
     :return: List of tuples (Measurement value)
     """
     result = client.query_api().query(org=org, query=query)

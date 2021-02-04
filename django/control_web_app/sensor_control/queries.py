@@ -1,7 +1,9 @@
+from django.shortcuts import get_object_or_404
 from myutils.get_influx_data import query_field_val_from_db, \
     query_val_from_db, query_all_tag_values, get_bucket
 
 from .models import Sensor
+from room_control.models import Room
 
 from typing import Dict, List, Tuple
 
@@ -12,7 +14,9 @@ def sort_sensor_ids(sensor_id_list: List[str]) -> Tuple[List[str], List[Sensor]]
     If sensor is in the database it has set location.
 
     :param sensor_id_list: List of sensor_ids collected from Influxdb
-    :return: Tuple with list of sensor ids without set location and list of class Sensor that contains sensor with set location (in database)
+
+    :return: Tuple with list of sensor ids without set location and list of objects type Sensor 
+    that contains sensor with set location (in database)
     """
     sensor_id_nonset = []
     sensor_id_set = []
@@ -28,6 +32,7 @@ def sort_sensor_ids(sensor_id_list: List[str]) -> Tuple[List[str], List[Sensor]]
 def create_hostname_dict(sensor_id_list: List[str]) -> Dict[str, str]:
     """
     :param sensor_id_list: List of sensor_ids collected from Influxdb
+
     :return: Dictionary with sensor ids as keys and hostnames as values
     """
     sensor_id_hostnames: Dict[str] = {}
@@ -49,6 +54,7 @@ def query_sensor_hostname(sensor_id: str):
 def create_sensor_type_dict(sensor_id_list: List[str]) -> Dict[str, str]:
     """
     :param sensor_id_list: List of sensor_ids collected from Influxdb
+
     :return: Dictionary with sensor ids as keys and sensor types as values
     """
     sensor_type_dict: Dict[str] = {}
@@ -66,6 +72,13 @@ def query_sensor_type(sensor_id: str):
     |> distinct()".format(get_bucket(), sensor_id)
     return query_val_from_db(hostname_query)[0]
 
+def create_room_dict(sensor_id_set_list: List[Sensor]) -> Dict[str,str]:
+    room_dict = {}
+    for sensor in sensor_id_set_list:
+        if sensor.room:
+            room_name = get_object_or_404(Room, id=int(sensor.room))
+            room_dict[sensor.sensor_id] = room_name
+    return room_dict
 
 def query_last_sensor_temp(sensor_id):
     temperature_query = "from(bucket: \"{}\")\

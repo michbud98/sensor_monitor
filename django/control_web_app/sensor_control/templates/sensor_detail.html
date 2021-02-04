@@ -15,7 +15,12 @@
         <li><label>Hostname: </label>{{ obj.hostname }}</li>
         <li><label>Location: </label>{{ obj.location }}</li>
         <li><label>Sensor type: </label>{{ obj.sensor_type }}</li>
-        {% if obj.room %} <li> <label>Room: </label> Room: {{ sensor_id.room }} </li> {% endif %}
+        {% if room_name %} 
+        <li> 
+            <label>Room: </label> 
+            <a href="../../rooms/{{ obj.room }}">{{ room_name }} </a>
+        </li> 
+        {% endif %}
         {% if obj.description %}<li> <label>Description: </label> {{ obj.description }} </li> {% endif %}
     {% else %}
     <li>This sensor has no location</li>
