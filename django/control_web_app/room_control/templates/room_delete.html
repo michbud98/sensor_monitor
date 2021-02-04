@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %} 
+<form action="{% url 'room_remove' room_id=obj.id %}" method="POST"> {% csrf_token %}
+    <h1>Comfirm removal of {{ obj.room_name }}</h1>
+    <p><input type="submit" value="Yes"> <a href="{% url 'room_list'%}">Cancel</a></p>
+</form>
+{% endblock %}

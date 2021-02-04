@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 
 from sensor_control.models import Sensor
@@ -25,3 +25,20 @@ def room_create_view(request):
             'form':form,
         }
     return render(request, "room_create.html", my_context)
+
+def room_detail_view(request, room_id):
+    obj = get_object_or_404(Room, id=room_id)
+    my_context = {
+            "obj" : obj,
+        }
+    return render(request, "room_detail.html", my_context)
+
+def room_remove_view(request, room_id):
+    obj = get_object_or_404(Room, id=room_id)
+    if request.method == "POST":
+        obj.delete()
+        return redirect(room_list_view)
+    my_context = {
+        "obj": obj
+    }
+    return render(request, "room_delete.html", my_context)

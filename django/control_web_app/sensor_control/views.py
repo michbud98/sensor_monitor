@@ -53,7 +53,6 @@ def sensor_update_view(request, sensor_id):
     }
     return render(request, "sensor_create.html", context)
 
-
 def sensor_remove_view(request, sensor_id):
     obj = get_object_or_404(Sensor, sensor_id=sensor_id)
     if request.method == "POST":
