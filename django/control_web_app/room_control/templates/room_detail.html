@@ -2,4 +2,20 @@
 
 {% block content %}
 <h1>{{ obj.room_name }} detail</h1>
+{% if sensors_set %}
+    <h2>Last values collected by sensors:</h2>
+    <ul>
+        {% for sensor in sensors_set %}
+        <li>
+            <!-- TODO Add this to table element (tb) -->
+            <p><label>Sensor_id: </label> {{ sensor.sensor_id }} <label>Sensor_hostname: </label> {{ sensor.hostname }}</p>
+            <p>
+                <label>Temperature: </label> {{ temp_dict|get_item:sensor.sensor_id }}
+                <label>Pressure: </label> {{ pressure_dict|get_item:sensor.sensor_id }}
+                <label>Humidity: </label> {{ humidity_dict|get_item:sensor.sensor_id }}
+            </p>
+        </li>
+        {% endfor %}
+    </ul>
+{% endif %}
 {% endblock %}

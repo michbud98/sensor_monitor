@@ -1,9 +1,17 @@
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
+from django.template.defaulttags import register
 
 from sensor_control.models import Sensor
+
 from .models import Room
 from .forms import Room_form
+from . import queries
+
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
 
 # Create your views here.
 def room_list_view(request):
@@ -41,9 +49,17 @@ def room_update_view(request, room_id):
     return render(request, "room_create.html", context)
 
 def room_detail_view(request, room_id):
+    sensors_set = Sensor.objects.filter(room=room_id)
     obj = get_object_or_404(Room, id=room_id)
+    temp_dict = queries.create_temp_dict(sensors_set)
+    pressure_dict = queries.create_pressure_dict(sensors_set)
+    humidity_dict = queries.create_humidity_dict(sensors_set)
     my_context = {
             "obj" : obj,
+            "sensors_set": sensors_set,
+            "temp_dict": temp_dict,
+            "pressure_dict": pressure_dict,
+            "humidity_dict": humidity_dict,
         }
     return render(request, "room_detail.html", my_context)
 
