@@ -3,21 +3,22 @@
 {% block content %}
 <h1>Room list</h1>
 {% if rooms_set %}
-    <ul>
-        {% for room in rooms_set %}
-        <!-- TODO Add this to table element (tb) -->
-        <li>
-            {{ room.room_name }}
-            <a href="{% url 'room_update' room_id=room.id %}">Edit</a>
-            <a href="{% url 'room_detail' room_id=room.id %}">Detail</a>
-            <a href="{% url 'room_remove' room_id=room.id %}">Remove</a>
-        </li>
-        {% endfor %}
-    
-    </ul>
-    <p><a href="{% url 'room_create' %}">Add new room</a></p>
+<table>
+    <tr>
+        <th>Room</th>
+    </tr>
+    {% for room in rooms_set %}
+    <tr>
+        <td>{{ room.room_name }}</td>
+        <td><a href="{% url 'room_update' room_id=room.id %}">Edit</a></td>
+        <td><a href="{% url 'room_detail' room_id=room.id %}">Detail</a></td>
+        <td><a href="{% url 'room_remove' room_id=room.id %}">Remove</a></td>
+    </tr>
+    {% endfor %}
+</table>
+<p><a href="{% url 'room_create' %}">Add new room</a></p>
 {% else %}
-    <p>There are now rooms in a database. <a href="{% url 'room_create' %}">Please add new rooms.</a></p>
+<p>There are now rooms in a database. <a href="{% url 'room_create' %}">Please add new rooms.</a></p>
 {% endif %}
-<a href="../">Back to main menu</a>
+<a href="{% url 'home' %}">Back to main menu</a>
 {% endblock %}

@@ -2,21 +2,28 @@
 
 {% block content %}
 <h1>{{ obj.room_name }} detail</h1>
+<h2>Last values collected by sensors:</h2>
 {% if sensors_set %}
-    <h2>Last values collected by sensors:</h2>
-    <ul>
-        {% for sensor in sensors_set %}
-        <li>
-            <!-- TODO Add this to table element (tb) -->
-            <p><label>Sensor_id: </label> {{ sensor.sensor_id }} <label>Sensor_hostname: </label> {{ sensor.hostname }}</p>
-            <p>
-                <label>Temperature: </label> {{ temp_dict|get_item:sensor.sensor_id }}
-                <label>Pressure: </label> {{ pressure_dict|get_item:sensor.sensor_id }}
-                <label>Humidity: </label> {{ humidity_dict|get_item:sensor.sensor_id }}
-            </p>
-        </li>
-        {% endfor %}
-    </ul>
+<table>
+    <tr>
+        <th>Sensor_id</th>
+        <th>Sensor_hostname</th>
+        <th>Sensor_type</th>
+        <th>Temperature</th>
+        <th>Pressure</th>
+        <th>Humidity</th>
+    </tr>
+    {% for sensor in sensors_set %}
+    <tr>
+        <td>{{ sensor.sensor_id }}</td>
+        <td>{{ sensor.hostname }}</td>
+        <td>{{ sensor.sensor_type }}</td>
+        <td>{{ temp_dict|get_item:sensor.sensor_id }} °C</td>
+        <td>{{ pressure_dict|get_item:sensor.sensor_id }} HPa</td>
+        <td>{{ humidity_dict|get_item:sensor.sensor_id }} %</td>
+    </tr>
+    {% endfor %}
+</table>
 {% endif %}
 
 <a href="{% url 'room_list' %}">Back to room list</a>

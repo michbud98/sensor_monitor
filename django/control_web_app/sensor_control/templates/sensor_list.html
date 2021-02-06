@@ -3,36 +3,57 @@
 {% block content %}
 <h1>This is HTML for sensor list</h1>
 <h2>Sensor without set location:</h2>
-<ul>
+{% if sensor_id_list_nonset %}
+<table>
+    <tr>
+        <td>Sensor_id</td>
+        <td>Hostname</td>
+        <td>Sensor type</td>
+    </tr>
     {% for sensor_id in sensor_id_list_nonset %}
-    <!-- TODO Add this to table element (tb) -->
-    <li>
-        Sensor_id: {{ sensor_id }}
-        Hostname: {{ hostname_dict|get_item:sensor_id }}
-        Sensor type: {{ sensor_type_dict|get_item:sensor_id }}
-        <a href="{% url 'sensor_create' sensor_id=sensor_id hostname=hostname_dict|get_item:sensor_id sensor_type=sensor_type_dict|get_item:sensor_id %}">Add location</a>
-        <a href="{% url 'sensor_detail' sensor_id=sensor_id %}">Sensor info</a>
-    </li>
+    <tr>
+        <td>{{ sensor_id }}</td>
+        <td>{{ hostname_dict|get_item:sensor_id }}</td> 
+        <td>{{ sensor_type_dict|get_item:sensor_id }}</td>
+        <td><a href="{% url 'sensor_create' sensor_id=sensor_id hostname=hostname_dict|get_item:sensor_id sensor_type=sensor_type_dict|get_item:sensor_id %}">
+            Add location</a></td>
+        <td><a href="{% url 'sensor_detail' sensor_id=sensor_id %}">Sensor info</a></td>
+    </tr>
     {% endfor %}
-</ul>
+</table>
+{% else %}
+<p>There are no sensors without set location</p>
+{% endif %}
 
 <h2>Sensors with set location:</h2>
-<ul>
+{% if sensor_id_list_set %}
+<table>
+    <tr>
+        <td>Sensor_id</td>
+        <td>Hostname</td>
+        <td>Sensor type</td>
+        <td>Location</td>
+        <td>Room</td>
+    </tr>
     {% for sensor_id in sensor_id_list_set %}
-    <!-- TODO Add this to table element (tb) -->
-    <li>
-        Sensor_id: {{ sensor_id.sensor_id }}
-        Hostname: {{ sensor_id.hostname }}
-        Sensor type: {{ sensor_id.sensor_type }}
-        Location: {{ sensor_id.location }}
+    <tr>
+        <td>{{ sensor_id.sensor_id }}</td>
+        <td>{{ sensor_id.hostname }}</td>
+        <td>{{ sensor_id.sensor_type }}</td>
+        <td>{{ sensor_id.location }}</td>
         {% if sensor_id.room %}
-        Room: <a href="../rooms/{{ sensor_id.room }}">{{ room_dict|get_item:sensor_id.sensor_id }}</a>
+        <td><a href="{% url 'room_detail' room_id=sensor_id.room %}">{{ room_dict|get_item:sensor_id.sensor_id }}</a></td>
+        {% else %}
+        <td></td>
         {% endif %}
-        <a href="{% url 'sensor_update' sensor_id=sensor_id.sensor_id %}">Edit</a>
-        <a href="{% url 'sensor_detail' sensor_id=sensor_id.sensor_id %}">Sensor info</a>
-        <a href="{% url 'sensor_remove' sensor_id=sensor_id.sensor_id %}">Remove</a>
-    </li>
+        <td><a href="{% url 'sensor_update' sensor_id=sensor_id.sensor_id %}">Edit</a></td>
+        <td><a href="{% url 'sensor_detail' sensor_id=sensor_id.sensor_id %}">Sensor info</a></td>
+        <td><a href="{% url 'sensor_remove' sensor_id=sensor_id.sensor_id %}">Remove</a></td>
+    </tr>
     {% endfor %}
-</ul>
-<a href="../">Back to main menu</a>
+</table>
+{% else %}
+<p>There are no sensors with set location</p>
+{% endif %}
+<a href="{% url 'home' %}">Back to main menu</a>
 {% endblock %}

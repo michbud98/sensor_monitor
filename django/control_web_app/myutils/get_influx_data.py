@@ -5,8 +5,6 @@ import influxdb_client
 from typing import Dict, List, Tuple
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-#TODO Insert these values to querries as variables
 bucket = "Sensor_data"
 org = "swiftblade1982@gmail.com"
 # Gets Influx token from file
