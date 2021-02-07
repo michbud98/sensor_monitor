@@ -72,13 +72,6 @@ def query_sensor_type(sensor_id: str):
     |> distinct()".format(get_bucket(), sensor_id)
     return query_val_from_db(hostname_query)[0]
 
-def create_room_dict(sensor_id_set_list: List[Sensor]) -> Dict[str,str]:
-    room_dict = {}
-    for sensor in sensor_id_set_list:
-        if sensor.room:
-            room_name = get_object_or_404(Room, id=int(sensor.room))
-            room_dict[sensor.sensor_id] = room_name
-    return room_dict
 
 def query_last_sensor_temp(sensor_id):
     temperature_query = "from(bucket: \"{}\")\

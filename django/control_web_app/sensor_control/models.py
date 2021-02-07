@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from room_control.models import Room
 
 # Create your models here.
 class Sensor(models.Model):
@@ -7,7 +8,7 @@ class Sensor(models.Model):
     hostname = models.CharField(max_length=30, blank=True, null=True)
     sensor_type = models.CharField(max_length=20)
     location = models.CharField(max_length=10)
-    room = models.CharField(max_length=30, blank=True, null=True)
+    room = models.ForeignKey(Room, on_delete=models.SET_NULL, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
 
     def __str__(self):

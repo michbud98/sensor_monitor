@@ -42,7 +42,7 @@
         <td>{{ sensor_id.sensor_type }}</td>
         <td>{{ sensor_id.location }}</td>
         {% if sensor_id.room %}
-        <td><a href="{% url 'room_detail' room_id=sensor_id.room %}">{{ room_dict|get_item:sensor_id.sensor_id }}</a></td>
+        <td><a href="{% url 'room_detail' room_id=sensor_id.room.id %}">{{ sensor_id.room }}</a></td>
         {% else %}
         <td></td>
         {% endif %}
