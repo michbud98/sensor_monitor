@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %} 
+<form method="POST"> {% csrf_token %}
+{{ form.as_p }}
+<p><input type="submit" value="save" /> <a href="{% url 'device_list'%}">Cancel</a></p>
+</form>
+{% endblock %}
+

@@ -2,8 +2,7 @@
 
 {% block content %} 
 <form action="{% url 'sensor_remove' sensor_id=obj.sensor_id %}" method="POST"> {% csrf_token %}
-    <h1>Comfirm removal of sensor from location:</h1>
-    <p>Sensor_id: {{ obj.sensor_id }}</p>
+    <h1>Comfirm removal of sensor id: <u>{{ obj.sensor_id }}</u></h1>
     <p>Hostname: {{ obj.hostname }}</p>
     <p>Location: {{ obj.location }}</p>
     {% if obj.room %}

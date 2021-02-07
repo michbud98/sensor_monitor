@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Devices list</h1>
+{% if devices_set %}
+<table>
+    <tr>
+        <th>Device_id</th>
+        <th>Device_type</th>
+        <th>Room</th>
+    </tr>
+    {% for device in devices_set %}
+    <tr>
+        <td>{{ device.device_id }}</td>
+        <td>{{ device.device_type }}</td>
+        <td><a href="{% url 'room_detail' room_id=device.room.id %}">{{ device.room }}</a></td>
+        <td><a href="{% url 'device_update' device_id=device.device_id %}">Edit</a></td>
+        <td><a href="{% url 'device_detail' device_id=device.device_id %}">Detail</a></td>
+        <td><a href="{% url 'device_remove' device_id=device.device_id %}">Remove</a></td>
+    </tr>
+    {% endfor %}
+</table>
+<p><a href="{% url 'device_create' %}">Add new device</a></p>
+{% else %}
+<p>There are no devices in a database. <a href="{% url 'device_create' %}">Please add new devices.</a></p>
+{% endif %}
+<a href="{% url 'home' %}">Back to main menu</a>
+{% endblock %}

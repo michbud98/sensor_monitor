@@ -4,8 +4,9 @@
 <h1>Main menu of intelligent building control web app</h1>
 <ul>
     <li><a href="/basic_values">Basic values</a></li>
-    <li><a href="/sensors">Sensor list</a></li>
-    <li><a href="/rooms">Room control</a></li>
+    <li><a href="{% url 'sensor_list' %}">Sensor list</a></li>
+    <li><a href="{% url 'room_list' %}">Room list</a></li>
+    <li><a href="{% url 'device_list' %}">Device list</a></li>
 </ul>
 {% endblock %}
 

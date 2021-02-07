@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Room list</h1>
+<h1>Rooms list</h1>
 {% if rooms_set %}
 <table>
     <tr>
@@ -18,7 +18,7 @@
 </table>
 <p><a href="{% url 'room_create' %}">Add new room</a></p>
 {% else %}
-<p>There are now rooms in a database. <a href="{% url 'room_create' %}">Please add new rooms.</a></p>
+<p>There are no rooms in a database. <a href="{% url 'room_create' %}">Please add new rooms.</a></p>
 {% endif %}
 <a href="{% url 'home' %}">Back to main menu</a>
 {% endblock %}

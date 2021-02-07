@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %} 
+<form action="{% url 'device_remove' device_id=obj.device_id %}" method="POST"> {% csrf_token %}
+    <h1>Comfirm removal of device id: <u>{{ obj.device_id }}</u></h1>
+    <p>Hostname: {{ obj.device_type }}</p>
+    {% if obj.room %}
+    <p>Room: <a href="{% url 'room_detail' room_id=obj.room.id %}">{{ obj.room }}</a></p>
+    {% endif %}
+    <p><input type="submit" value="Yes"> <a href="{% url 'device_list'%}">Cancel</a></p>
+</form>
+{% endblock %}
