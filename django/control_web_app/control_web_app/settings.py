@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     "main_menu",
     "basic_values",
     "sensor",
-    "room"
+    "room",
+    "device",
 ]
 
 MIDDLEWARE = [

@@ -24,5 +24,6 @@ urlpatterns = [
     path('', home_view, name='home'),
     path('basic_values/', basic_values_view, name='basic_values'),
     path('sensors/', include('sensor.urls')),
-    path('rooms/', include('room.urls'))
+    path('rooms/', include('room.urls')),
+    path('devices/', include('device.urls'))
 ]
