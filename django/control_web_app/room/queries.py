@@ -1,5 +1,5 @@
-from sensor_control import queries as sensor_querries
-from sensor_control.models import Sensor
+from sensor import queries as sensor_querries
+from sensor.models import Sensor
 from typing import Dict, List, Tuple
 
 def create_temp_dict(sensor_set: List[Sensor]) -> Dict[str,str]:

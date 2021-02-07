@@ -3,7 +3,7 @@ from myutils.get_influx_data import query_field_val_from_db, \
     query_val_from_db, query_all_tag_values, get_bucket
 
 from .models import Sensor
-from room_control.models import Room
+from room.models import Room
 
 from typing import Dict, List, Tuple
 

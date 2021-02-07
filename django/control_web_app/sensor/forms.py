@@ -1,7 +1,7 @@
 from django import forms
 
 from .models import Sensor
-from room_control.models import Room
+from room.models import Room
 
 class Sensor_form(forms.ModelForm):
     LOCATION_CHOICES = [("indoors", "Indoors"), ("outdoors", "Outdoors")]

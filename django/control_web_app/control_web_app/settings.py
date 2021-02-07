@@ -41,8 +41,8 @@ INSTALLED_APPS = [
     # own
     "main_menu",
     "basic_values",
-    "sensor_control",
-    "room_control"
+    "sensor",
+    "room"
 ]
 
 MIDDLEWARE = [

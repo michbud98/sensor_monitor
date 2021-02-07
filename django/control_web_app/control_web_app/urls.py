@@ -23,6 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view, name='home'),
     path('basic_values/', basic_values_view, name='basic_values'),
-    path('sensors/', include('sensor_control.urls')),
-    path('rooms/', include('room_control.urls'))
+    path('sensors/', include('sensor.urls')),
+    path('rooms/', include('room.urls'))
 ]

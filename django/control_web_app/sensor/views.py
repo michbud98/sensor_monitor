@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 from . import queries
 from .models import Sensor
 from .forms import Sensor_form
-from room_control.models import Room
+from room.models import Room
 
 
 @register.filter

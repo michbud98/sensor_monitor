@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-from room_control.models import Room
+from room.models import Room
 
 # Create your models here.
 class Sensor(models.Model):

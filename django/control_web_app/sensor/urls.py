@@ -1,6 +1,6 @@
 from django.urls import path
 
-from sensor_control.views import (sensor_list_view, sensor_create_view,
+from .views import (sensor_list_view, sensor_create_view,
  sensor_remove_view, sensor_detail_view, sensor_update_view)
 
 urlpatterns = [
