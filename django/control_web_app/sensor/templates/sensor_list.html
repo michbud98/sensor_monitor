@@ -55,5 +55,6 @@
 {% else %}
 <p>There are no sensors with set location</p>
 {% endif %}
-<a href="{% url 'home' %}">Back to main menu</a>
+<p><a href="{% url 'room_list' %}">Back to room list</a></p>
+<p><a href="{% url 'home' %}">Back to main menu</a></p>
 {% endblock %}

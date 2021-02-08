@@ -28,5 +28,6 @@
 {% else %}
 <p>There are no devices in a database. <a href="{% url 'device_create' %}">Please add new devices.</a></p>
 {% endif %}
-<a href="{% url 'home' %}">Back to main menu</a>
+<p><a href="{% url 'room_list' %}">Back to room list</a></p>
+<p><a href="{% url 'home' %}">Back to main menu</a></p>
 {% endblock %}

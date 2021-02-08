@@ -24,6 +24,11 @@
     </tr>
     {% endfor %}
 </table>
+<a href="{% url 'sensor_list' %}">Add sensor</a>
+{% else %}
+<p>No sensor set for this room. 
+    You can browse sensor list and <a href="{% url 'sensor_list' %}">add sensor to this room</a>.
+</p>
 {% endif %}
 <h2>Available devices: </h2>
 {% if devices_set %}
@@ -36,10 +41,16 @@
     <tr>
         <td>{{ device.device_id }}</td>
         <td>{{ device.device_type }}</td>
+        <td><a href="{% url 'device_detail_edit' device_id=device.device_id room_id=obj.id %}">Edit device values</a></td>
     </tr>
     {% endfor %}
 </table>
+<a href="{% url 'device_list' %}">Add device</a>
+{% else %}
+<p>No device set for this room. 
+    You can browse device list and <a href="{% url 'device_list' %}">add device to this room</a>.
+</p>
 {% endif %}
 
-<a href="{% url 'room_list' %}">Back to room list</a>
+<p><a href="{% url 'room_list' %}">Back to room list</a></p>
 {% endblock %}

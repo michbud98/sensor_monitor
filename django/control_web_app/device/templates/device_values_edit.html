@@ -9,15 +9,19 @@
 </ul>
 
 <ul>
+    <form method="POST"> {% csrf_token %}
+        {{ form.as_ul }}
+        <p><input type="submit" value="save" /> <a href="{% url 'device_list'%}">Cancel</a></p>
+    </form>
     {% if thermo_head %}
-    <li><label>Heat value: </label> {{ thermo_head.set_heat_value }}</li>
     <li><label>Last requested heat value: </label> {{ thermo_head.last_requested_heat_value }}</li>
     <li><label>Last request datetime: </label> {{ thermo_head.last_request }}</li>
     {% elif sunblind %}
-    <li><label>Open value: </label> {{ sunblind.set_open_value }}</li>
+    
     <li><label>Last requested open value: </label> {{ sunblind.last_requested_open_value }}</li>
     <li><label>Last request datetime: </label> {{ sunblind.last_request }}</li>
     {% endif %}
+    
 </ul>
 {% if room_id %}
 <p><a href="{% url 'room_detail' room_id=room_id %}">Back to room</a></p>
