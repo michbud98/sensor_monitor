@@ -29,7 +29,7 @@ def device_create_view(request):
         my_context ={
             'form':form,
         }
-    return render(request, "room_create.html", my_context)
+    return render(request, "device_create.html", my_context)
 
 def device_update_view(request, device_id):
     form = None
