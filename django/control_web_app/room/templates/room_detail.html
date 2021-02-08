@@ -25,6 +25,21 @@
     {% endfor %}
 </table>
 {% endif %}
+<h2>Available devices: </h2>
+{% if devices_set %}
+<table>
+    <tr>
+        <th>Device_id</th>
+        <th>Device_type</th>
+    </tr>
+    {% for device in devices_set %}
+    <tr>
+        <td>{{ device.device_id }}</td>
+        <td>{{ device.device_type }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
 
 <a href="{% url 'room_list' %}">Back to room list</a>
 {% endblock %}

@@ -6,11 +6,26 @@ from room.models import Room
 class Device(models.Model):
     DEVICE_TYPES = (
         ('sunblind', 'sunblind'),
-        ('thermostatic head', 'thermostatic head'),
+        ('thermo_head', 'thermostatic head'),
     )
     device_id = models.CharField(max_length=30, unique=True)
     device_type = models.CharField(max_length=30, choices=DEVICE_TYPES)
     room = models.ForeignKey(Room, on_delete=models.SET_NULL, blank=True, null=True)
+    last_set_value_date = models.DateTimeField(blank=True, null=True)
+
+    def get_device_types(self):
+        return self.DEVICE_TYPES
 
     def __str__(self):
         return self.device_id
+
+    class Meta:
+        ordering = ['device_id']
+
+class Thermo_head(Device):
+    set_heat_value = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
+    last_set_heat_value = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
+
+class Sunblind(Device):
+    set_open_value = models.BooleanField(default=False)
+    last_set_open_value = models.BooleanField(default=False)

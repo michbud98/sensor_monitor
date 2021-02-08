@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 from django.template.defaulttags import register
 
 from sensor.models import Sensor
+from device.models import Device
 
 from .models import Room
 from .forms import Room_form
@@ -49,14 +50,17 @@ def room_update_view(request, room_id):
     return render(request, "room_create.html", context)
 
 def room_detail_view(request, room_id):
-    sensors_set = Sensor.objects.filter(room=room_id)
     obj = get_object_or_404(Room, id=room_id)
+    sensors_set = Sensor.objects.filter(room=room_id)
+    devices_set = Device.objects.filter(room=room_id)
+
     temp_dict = queries.create_temp_dict(sensors_set)
     pressure_dict = queries.create_pressure_dict(sensors_set)
     humidity_dict = queries.create_humidity_dict(sensors_set)
     my_context = {
             "obj" : obj,
             "sensors_set": sensors_set,
+            "devices_set": devices_set,
             "temp_dict": temp_dict,
             "pressure_dict": pressure_dict,
             "humidity_dict": humidity_dict,

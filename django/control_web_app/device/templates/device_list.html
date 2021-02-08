@@ -13,7 +13,11 @@
     <tr>
         <td>{{ device.device_id }}</td>
         <td>{{ device.device_type }}</td>
-        <td><a href="{% url 'room_detail' room_id=device.room.id %}">{{ device.room }}</a></td>
+        {% if device.room %}
+            <td><a href="{% url 'room_detail' room_id=device.room.id %}">{{ device.room }}</a></td>
+        {% else %}
+            <td></td>
+        {% endif %}
         <td><a href="{% url 'device_update' device_id=device.device_id %}">Edit</a></td>
         <td><a href="{% url 'device_detail' device_id=device.device_id %}">Detail</a></td>
         <td><a href="{% url 'device_remove' device_id=device.device_id %}">Remove</a></td>
