@@ -24,7 +24,7 @@
     </tr>
     {% endfor %}
 </table>
-<a href="{% url 'sensor_list' %}">Add sensor</a>
+<a href="{% url 'sensor_list' %}">Add sensor from sensor list</a>
 {% else %}
 <p>No sensor set for this room. 
     You can browse sensor list and <a href="{% url 'sensor_list' %}">add sensor to this room</a>.
@@ -45,7 +45,8 @@
     </tr>
     {% endfor %}
 </table>
-<a href="{% url 'device_list' %}">Add device</a>
+<a href="{% url 'device_list' %}">Show devices list</a>
+<a href="{% url 'device_create' %}">Add device</a>
 {% else %}
 <p>No device set for this room. 
     You can browse device list and <a href="{% url 'device_list' %}">add device to this room</a>.
