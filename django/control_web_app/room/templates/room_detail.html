@@ -41,7 +41,7 @@
     <tr>
         <td>{{ device.device_id }}</td>
         <td>{{ device.device_type }}</td>
-        <td><a href="{% url 'device_detail_edit' device_id=device.device_id room_id=obj.id %}">Edit device values</a></td>
+        <td><a href="{% url 'device_values_edit' device_id=device.device_id room_id=obj.id %}">Edit device values</a></td>
     </tr>
     {% endfor %}
 </table>

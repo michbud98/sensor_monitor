@@ -15,8 +15,8 @@ def device_list_view(request):
 def device_create_view(request):
     if request.method == "POST":
         device_form = Device_form(request.POST)
-        # REWORK Use get_device_types from model Devices
         if device_form.is_valid():
+            # REWORK Use device_types from model Devices
             if device_form.cleaned_data.get("device_type") == "thermo_head":
                 form = Thermo_head_form(request.POST)
             elif device_form.cleaned_data.get("device_type") == "sunblind":
@@ -47,7 +47,7 @@ def device_detail_view(request, device_id):
     device = get_object_or_404(Device, device_id=device_id)
     thermo_head = None
     sunblind = None
-    # REWORK Use get_device_types from model Devices
+    # REWORK Use device_types from model Devices
     if device.device_type == "thermo_head":
         thermo_head = get_object_or_404(Thermo_head, device_id=device_id)
     elif device.device_type == "sunblind":
@@ -58,31 +58,13 @@ def device_detail_view(request, device_id):
         "sunblind": sunblind,
     }
     return render(request, "device_detail.html", my_context)
+    
 
-# REWORK Try to use overloading 
-def device_detail_room_view(request, device_id, room_id):
-    device = get_object_or_404(Device, device_id=device_id)
-    thermo_head = None
-    sunblind = None
-    # REWORK Use get_device_types from model Devices
-    if device.device_type == "thermo_head":
-        thermo_head = get_object_or_404(Thermo_head, device_id=device_id)
-    elif device.device_type == "sunblind":
-        sunblind = get_object_or_404(Sunblind, device_id=device_id)
-    my_context = {
-        "device": device,
-        "thermo_head": thermo_head,
-        "sunblind": sunblind,
-        "room_id": room_id
-    }
-    return render(request, "device_detail.html", my_context)
-
-# REWORK I think that i can make this smaller
 def device_values_edit_view(request, device_id, room_id):
     device = get_object_or_404(Device, device_id=device_id)
     thermo_head = None
     sunblind = None
-    # REWORK Use get_device_types from model Devices
+    # REWORK Use device_types from model Devices
     if device.device_type == "thermo_head":
         thermo_head = get_object_or_404(Thermo_head, device_id=device_id)
         initial_data = { "set_heat_value": thermo_head.set_heat_value }
@@ -94,9 +76,9 @@ def device_values_edit_view(request, device_id, room_id):
         form = Sunblind_values_form(request.POST or None, initial=initial_data, instance=sunblind)
     
     if request.method == "POST":
-            if form.is_valid():
-                form.save()
-                return redirect(device_detail_room_view, device_id=device_id, room_id=room_id )
+        if form.is_valid():
+            form.save()
+            return redirect(device_detail_view, device_id=device_id)
     my_context = {
         'form': form,
         "device": device,

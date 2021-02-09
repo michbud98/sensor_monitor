@@ -11,7 +11,7 @@
 <ul>
     <form method="POST"> {% csrf_token %}
         {{ form.as_ul }}
-        <p><input type="submit" value="save" /> <a href="{% url 'device_list'%}">Cancel</a></p>
+        <input type="submit" value="save" />
     </form>
     {% if thermo_head %}
     <li><label>Last requested heat value: </label> {{ thermo_head.last_requested_heat_value }}</li>

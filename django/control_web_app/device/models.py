@@ -13,9 +13,6 @@ class Device(models.Model):
     room = models.ForeignKey(Room, on_delete=models.SET_NULL, blank=True, null=True)
     last_request = models.DateTimeField(blank=True, null=True)
 
-    def get_device_types(self):
-        return self.DEVICE_TYPES
-
     def __str__(self):
         return self.device_id
 

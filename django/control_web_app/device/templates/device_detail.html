@@ -19,8 +19,7 @@
     <li><label>Last request datetime: </label> {{ sunblind.last_request }}</li>
     {% endif %}
 </ul>
-{% if room_id %}
-<p><a href="{% url 'room_detail' room_id=room_id %}">Back to room</a></p>
-{% endif %}
+<p><a href="{% url 'device_values_edit' device_id=device.device_id room_id=device.room.id %}">Edit device values</a></p>
+<p><a href="{% url 'room_detail' room_id=device.room.id %}">Back to room</a></p>
 <p><a href="{% url 'device_list' %}">Back to device list</a></p>
 {% endblock %}
