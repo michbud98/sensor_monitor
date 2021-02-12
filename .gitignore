@@ -7,9 +7,9 @@
 **/venv
 /telegraf/nodemcu/telegraf_docker_my.conf
 telegraf_sensor_data_my.conf
-secret_key.txt
-influx_cloud_token.txt
+**/secrets
 __pycache__
 /django/control_web_app/**/migrations/*.py
 !/django/control_web_app/**/migrations/__init__.py
 postgres
+.vscode

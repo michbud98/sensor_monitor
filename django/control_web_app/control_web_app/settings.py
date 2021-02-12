@@ -24,8 +24,12 @@ with open(os.path.join(BASE_DIR,"secrets/secret_key.txt")) as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
+
 ALLOWED_HOSTS = []
 
+with open(os.path.join(BASE_DIR,"secrets/rpi_local_adress.txt")) as f:
+    ALLOWED_HOSTS.append(f.read().strip()) 
 
 # Application definition
 
