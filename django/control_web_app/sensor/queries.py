@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
 from myutils.get_influx_data import query_field_val_from_db, \
-    query_val_from_db, query_all_tag_values, get_bucket
+    query_field_from_db, query_val_from_db, query_all_tag_values, get_bucket
 
 from .models import Sensor
 from room.models import Room
@@ -40,7 +40,7 @@ def create_hostname_dict(sensor_id_list: List[str]) -> Dict[str, str]:
         sensor_id_hostnames[sensor_id] = query_sensor_hostname(sensor_id)
     return sensor_id_hostnames
 
-
+# REWORK I can add one querry with parameters and then I can call it from these methods
 def query_sensor_hostname(sensor_id: str):
     hostname_query = "from(bucket: \"{}\")\
     |> range(start: -30d)\
@@ -72,6 +72,15 @@ def query_sensor_type(sensor_id: str):
     |> distinct()".format(get_bucket(), sensor_id)
     return query_val_from_db(hostname_query)[0]
 
+def query_sensor_fields(sensor_id):
+    fields_query = "from(bucket: \"{}\")\
+    |> range(start: -1h)\
+    |> filter(fn: (r) => r.sensor_id == \"{}\")\
+    |> keep(columns: [\"_field\"])\
+    |> distinct()\
+    |> keep(columns: [\"_field\"])\
+    |> yield(name: \"mean\")".format(get_bucket(), sensor_id)
+    return query_field_from_db(fields_query)
 
 def query_last_sensor_temp(sensor_id):
     temperature_query = "from(bucket: \"{}\")\
@@ -99,3 +108,52 @@ def query_last_sensor_humidity(sensor_id):
         |> filter(fn: (r) => r.sensor_id == \"{}\")\
         |> last()".format(get_bucket(), sensor_id)
     return query_field_val_from_db(temperature_query)[0][1]
+
+def get_sensor_values(sensor_id):
+    temp = query_last_sensor_temp(sensor_id)
+    press = query_last_sensor_pressure(sensor_id)
+    hum = query_last_sensor_humidity(sensor_id)
+    return temp, press, hum
+# ----------------------boiler-------------------------
+def query_last_boiler_radiator_tmp_in(sensor_id):
+    temperature_query = "from(bucket: \"{}\")\
+    |> range(start: -1h)\
+    |> filter(fn: (r) => r._measurement == \"boiler_radiator_temp\")\
+    |> filter(fn: (r) => r._field == \"tmp_in\")\
+    |> filter(fn: (r) => r.sensor_id == \"{}\")\
+    |> last()".format(get_bucket(), sensor_id)
+    return query_field_val_from_db(temperature_query)[0][1]
+
+def query_last_boiler_radiator_tmp_out(sensor_id):
+    temperature_query = "from(bucket: \"{}\")\
+    |> range(start: -1h)\
+    |> filter(fn: (r) => r._measurement == \"boiler_radiator_temp\")\
+    |> filter(fn: (r) => r._field == \"tmp_out\")\
+    |> filter(fn: (r) => r.sensor_id == \"{}\")\
+    |> last()".format(get_bucket(), sensor_id)
+    return query_field_val_from_db(temperature_query)[0][1]
+
+def query_last_dwh_tmp(sensor_id):
+    temperature_query = "from(bucket: \"{}\")\
+    |> range(start: -1h)\
+    |> filter(fn: (r) => r._measurement == \"boiler_dhw\")\
+    |> filter(fn: (r) => r._field == \"dhw_tmp\")\
+    |> filter(fn: (r) => r.sensor_id == \"{}\")\
+    |> last()".format(get_bucket(), sensor_id)
+    return query_field_val_from_db(temperature_query)[0][1]
+
+def query_last_dwh_coil_tmp(sensor_id):
+    temperature_query = "from(bucket: \"{}\")\
+    |> range(start: -1h)\
+    |> filter(fn: (r) => r._measurement == \"boiler_dhw\")\
+    |> filter(fn: (r) => r._field == \"dhw_coil_temp\")\
+    |> filter(fn: (r) => r.sensor_id == \"{}\")\
+    |> last()".format(get_bucket(), sensor_id)
+    return query_field_val_from_db(temperature_query)[0][1]
+
+def get_boiler_values(sensor_id):
+    tmp_in_get = query_last_boiler_radiator_tmp_in(sensor_id)
+    tmp_out_get = query_last_boiler_radiator_tmp_out(sensor_id)
+    dhw_tmp_get = query_last_dwh_tmp(sensor_id)
+    dhw_coil_temp_get = query_last_dwh_coil_tmp(sensor_id)
+    return tmp_in_get, tmp_out_get, dhw_tmp_get, dhw_coil_temp_get

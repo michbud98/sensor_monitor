@@ -67,23 +67,32 @@ def sensor_remove_view(request, sensor_id):
     return render(request, "sensor_delete.html", my_context)
 
 def sensor_detail_view(request, sensor_id):
-    obj = None
+    obj, temperature, pressure, humidity  = None, None, None, None
+    tmp_in, tmp_out, dhw_tmp, dhw_coil_temp = None, None, None, None
+    boiler_bool = None
     try:
         obj = Sensor.objects.get(sensor_id=sensor_id)
-        temperature = queries.query_last_sensor_temp(obj.sensor_id)
-        pressure = queries.query_last_sensor_pressure(obj.sensor_id)
-        humitidy = queries.query_last_sensor_humidity(obj.sensor_id)
+        if obj.location != "boiler":
+            temperature, pressure, humidity = queries.get_sensor_values(obj.sensor_id)
+            boiler_bool = False
+        elif obj.location == "boiler":
+            tmp_in, tmp_out, dwh_tmp, dhw_coil_temp = queries.get_boiler_values(obj.sensor_id)
+            boiler_bool = True
     except Sensor.DoesNotExist:
-        temperature = queries.query_last_sensor_temp(sensor_id)
-        pressure = queries.query_last_sensor_pressure(sensor_id)
-        humitidy = queries.query_last_sensor_humidity(sensor_id)
-
+        sensor_fields = queries.query_sensor_fields(sensor_id)
+        if ['dhw_coil_temp', 'dhw_tmp', 'tmp_in', 'tmp_out'] != sensor_fields:
+            temperature, pressure, humidity = queries.get_sensor_values(sensor_id)
+            boiler_bool = False
+        elif ['dhw_coil_temp', 'dhw_tmp', 'tmp_in', 'tmp_out'] == sensor_fields:
+            tmp_in, tmp_out, dwh_tmp, dhw_coil_temp = queries.get_boiler_values(sensor_id)
+            boiler_bool = True
+        else:
+            print(sensor_fields)
+            raise Except(sensor_fields)
     my_context = {
-            "sensor_id": sensor_id,
-            "obj" : obj,
-            "temperature": temperature,
-            "pressure": pressure,
-            "humidity": humitidy
+            "sensor_id": sensor_id, "obj" : obj,
+            "temperature": temperature, "pressure": pressure, "humidity": humidity,
+            "tmp_in": tmp_in, "tmp_out": tmp_out, "dhw_tmp": dwh_tmp, "dhw_coil_temp": dhw_coil_temp,
+            "boiler_bool": boiler_bool
         }
-    
     return render(request, "sensor_detail.html", my_context)

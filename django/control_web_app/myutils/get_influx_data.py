@@ -35,6 +35,13 @@ def query_field_val_from_db(query: str) -> List[tuple]:
             results.append((record.get_field(), record.get_value()))
     return results
 
+def query_field_from_db(query: str) -> List[str]:
+    result = client.query_api().query(org=org, query=query)
+    results = []
+    for table in result:
+        for record in table.records:
+            results.append(record.get_field())
+    return results
 
 def query_val_from_db(query: str) -> List[str]:
     """
@@ -68,28 +75,13 @@ def query_all_tag_values(tag) -> List[str]:
 
 
 def main():
-    # query = 'from(bucket: "Sensor_data")\
-    # |> range(start: -1h)\
-    # |> filter(fn: (r) => r["_measurement"] == "sensor_temperature")\
-    # |> filter(fn: (r) => r["_field"] == "temperature")\
-    # |> filter(fn: (r) => r["host"] == "rpizero2")'
-    # tag_query = 'import "influxdata/influxdb/v1"\
-    # v1.tagValues(\
-    #   bucket: "Sensor_data",\
-    #   tag: "sensor_id",\
-    #   predicate: (r) => true,\
-    #   start: -1y)'
-    hostname_query = "from(bucket: \"{}\")\
-    |> range(start: -30d)\
+    boiler_querry = "from(bucket: \"{}\")\
+    |> range(start: -1h)\
+    |> filter(fn: (r) => r._measurement == \"boiler_radiator_temp\")\
+    |> filter(fn: (r) => r._field == \"tmp_in\")\
     |> filter(fn: (r) => r.sensor_id == \"{}\")\
-    |> keyValues(keyColumns: [\"host\"])\
-    |> keep(columns: [\"_value\"])\
-    |> group()\
-    |> distinct()".format(bucket, "raspi-00000000701fbc12")
-    #print(query_field_val_from_db(query))
-    #print(query_val_from_db(tag_query))
-    print(query_val_from_db(hostname_query))
-    print(query_all_tag_values("sensor_id"))
+    |> last()".format(get_bucket(), "raspi-0000000047bf8692")
+    print(query_field_val_from_db(boiler_querry))
 
 
 if __name__ == "__main__":

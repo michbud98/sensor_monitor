@@ -4,7 +4,7 @@ from .models import Sensor
 from room.models import Room
 
 class Sensor_form(forms.ModelForm):
-    LOCATION_CHOICES = [("indoors", "Indoors"), ("outdoors", "Outdoors")]
+    LOCATION_CHOICES = [("indoors", "Indoors"), ("outdoors", "Outdoors"),("boiler", "Boiler")]
     
     # [("value saved", "Text seen in select"), ("same", "same")]
     room_choices = [(None, "----")]
