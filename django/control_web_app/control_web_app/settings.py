@@ -26,7 +26,7 @@ DEBUG = True
 
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost"]
 
 with open(os.path.join(BASE_DIR,"secrets/rpi_local_adress.txt")) as f:
     ALLOWED_HOSTS.append(f.read().strip()) 
