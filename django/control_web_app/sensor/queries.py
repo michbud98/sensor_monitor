@@ -8,25 +8,31 @@ from room.models import Room
 from typing import Dict, List, Tuple
 
 
-def sort_sensor_ids(sensor_id_list: List[str]) -> Tuple[List[str], List[Sensor]]:
+def sort_sensor_ids(sensor_id_list: List[str]) -> Tuple[List[str], List[Sensor], List[Sensor]]:
     """
     Sorts sensor ids between two lists based on their availability in the django connected database. 
     If sensor is in the database it has set location.
 
     :param sensor_id_list: List of sensor_ids collected from Influxdb
 
-    :return: Tuple with list of sensor ids without set location and list of objects type Sensor 
-    that contains sensor with set location (in database)
+    :return: Tuple with list of sensor ids without set location, list of objects Sensor 
+    that contains sensor with set location (in database), list of objects Sensor with set location boiler
     """
     sensor_id_nonset = []
     sensor_id_set = []
+    sensor_id_boiler = []
     for sensor_id in sensor_id_list:
+        # Count = 1 -> one sensor with this sensor_id found in django db
         if Sensor.objects.filter(sensor_id=sensor_id).count() == 1:
-            sensor_id_set.append(Sensor.objects.get(sensor_id=sensor_id))
+            obj = Sensor.objects.get(sensor_id=sensor_id)
+            if obj.location == "boiler":
+                sensor_id_boiler.append(obj)
+            else:
+                sensor_id_set.append(obj)
         else:
             sensor_id_nonset.append(sensor_id)
 
-    return sensor_id_nonset, sensor_id_set
+    return sensor_id_nonset, sensor_id_set, sensor_id_boiler
 
 
 def create_hostname_dict(sensor_id_list: List[str]) -> Dict[str, str]:

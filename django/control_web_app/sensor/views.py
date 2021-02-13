@@ -14,7 +14,7 @@ def get_item(dictionary, key):
 
 # Create your views here.
 def sensor_list_view(request):
-    unset_list, set_list = queries.sort_sensor_ids(queries.query_all_tag_values("sensor_id"))
+    unset_list, set_list, boiler_list = queries.sort_sensor_ids(queries.query_all_tag_values("sensor_id"))
     hostname_dict = queries.create_hostname_dict(queries.query_all_tag_values("sensor_id"))
     sensor_type_dict = queries.create_sensor_type_dict(queries.query_all_tag_values("sensor_id"))
     
@@ -23,6 +23,7 @@ def sensor_list_view(request):
         "sensor_type_dict" : sensor_type_dict,
         "sensor_id_list_nonset": unset_list,
         "sensor_id_list_set": set_list,
+        "boiler_list": boiler_list
     }
     return render(request, "sensor_list.html", my_context)
 

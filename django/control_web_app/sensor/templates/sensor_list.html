@@ -55,6 +55,37 @@
 {% else %}
 <p>There are no sensors with set location</p>
 {% endif %}
+
+<h2>Boilers:</h2>
+{% if boiler_list %}
+<table>
+    <tr>
+        <td>Sensor_id</td>
+        <td>Hostname</td>
+        <td>Sensor type</td>
+        <td>Location</td>
+        <td>Room</td>
+    </tr>
+    {% for sensor_id in boiler_list %}
+    <tr>
+        <td>{{ sensor_id.sensor_id }}</td>
+        <td>{{ sensor_id.hostname }}</td>
+        <td>{{ sensor_id.sensor_type }}</td>
+        <td>{{ sensor_id.location }}</td>
+        {% if sensor_id.room %}
+        <td><a href="{% url 'room_detail' room_id=sensor_id.room.id %}">{{ sensor_id.room }}</a></td>
+        {% else %}
+        <td></td>
+        {% endif %}
+        <td><a href="{% url 'sensor_update' sensor_id=sensor_id.sensor_id %}">Edit</a></td>
+        <td><a href="{% url 'sensor_detail' sensor_id=sensor_id.sensor_id %}">Sensor info</a></td>
+        <td><a href="{% url 'sensor_remove' sensor_id=sensor_id.sensor_id %}">Remove</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>There are no sensors with set location</p>
+{% endif %}
 <p><a href="{% url 'room_list' %}">Back to room list</a></p>
 <p><a href="{% url 'home' %}">Back to main menu</a></p>
 {% endblock %}
