@@ -26,9 +26,9 @@ def main():
 
     sensor_id = "raspi-" + get_serial_number()
     sensor_type = "1wire"  # TODO Make dynamic
-    print("boiler_radiator_temp,sensor_id={},sensor_type={} tmp_in={},tmp_out={}".format(
+    print("boiler_radiator_temp,sensor_id={},sensor_type={} tmp_in={:.2f},tmp_out={:.2f}".format(
         sensor_id, sensor_type, to_inp, to_out))
-    print("boiler_dhw,sensor_id={},sensor_type={} dhw_tmp={},dhw_coil_temp={}".format(
+    print("boiler_dhw,sensor_id={},sensor_type={} dhw_tmp={:.2f},dhw_coil_temp={:.2f}".format(
         sensor_id, sensor_type, dhw_tmp, dhw_coil_temp))
 
 
