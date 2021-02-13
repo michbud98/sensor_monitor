@@ -44,7 +44,6 @@ INSTALLED_APPS = [
 
     # own
     "main_menu",
-    "basic_values",
     "sensor",
     "room",
     "device",

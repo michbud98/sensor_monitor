@@ -17,12 +17,10 @@ from django.contrib import admin
 from django.urls import include, path
 
 from main_menu.views import home_view
-from basic_values.views import basic_values_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view, name='home'),
-    path('basic_values/', basic_values_view, name='basic_values'),
     path('sensors/', include('sensor.urls')),
     path('rooms/', include('room.urls')),
     path('devices/', include('device.urls'))
