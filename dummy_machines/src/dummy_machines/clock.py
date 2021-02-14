@@ -3,6 +3,8 @@ from datetime import datetime
 import dummy_machines.requester as requester
 
 import logging
+import argparse
+import sys
 
 # Set logging to DEBUG which prints additional information
 logging.basicConfig()
@@ -18,13 +20,43 @@ def scheduled_job(args: dict = dict()):
     logging.debug(f'Running scheduled job. Args: {args}')
     requester.make_request(**args)
 
+def init_argparse() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("device_type", help="Type of device [Thermometer/Sunblind]")
+    parser.add_argument("device_id", help="Number representing id of device", type=int)
+    parser.add_argument('-s', "--seconds",action="store", dest="seconds",
+    help="Trigger interval in seconds", type=int)
+    parser.add_argument('-m', "--minutes",action="store", dest="minutes",
+    help="Trigger interval in seconds", type=int)
+    
+    return parser
+
+def create_job(args, parser, sched):
+    device_type = None
+    if args.device_type == "Thermometer":
+        device_type = requester.DeviceType.THERMOMETERS
+    elif args.device_type == "Sunblind":
+        device_type = requester.DeviceType.BLINDS
+    else:
+        parser.print_help(sys.stderr)
+        print(f"Device type argument [{args.device_type}] is not valid argument")
+        exit(1)
+
+    if args.seconds is not None:
+        sched.add_job(scheduled_job, args=[{"device_type": device_type, "id": args.device_id}],
+        trigger='interval', seconds=args.seconds)
+    elif args.minutes is not None:
+        sched.add_job(scheduled_job, args=[{"device_type": device_type, "id": args.device_id}],
+        trigger='interval', minutes=args.minutes)
+    else:
+        sched.add_job(scheduled_job, args=[{"device_type": device_type, "id": args.device_id}],
+        trigger='interval', minutes=1)
 
 def main():
+    parser = init_argparse()
+    args = parser.parse_args()
     sched = BlockingScheduler()
-
-    # sched.add_job(scheduled_job, args=[{"device_type": requester.DeviceType.BLINDS, "id": 1}], trigger='interval', minutes=45)
-    sched.add_job(scheduled_job, args=[{"device_type": requester.DeviceType.BLINDS, "id": 2}], trigger='interval', seconds=5)
-    # sched.add_job(scheduled_job, trigger='interval', seconds=5)
+    create_job(args, parser, sched)
 
     logging.info("Jobs scheduled.")
     sched.start()

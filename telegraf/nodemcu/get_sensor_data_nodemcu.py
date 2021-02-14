@@ -7,6 +7,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
+
 def get_sensor_data_html(sensor_url: str) -> str:
     """
     Gets html from nodemcu sensor

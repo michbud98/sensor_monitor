@@ -27,4 +27,10 @@ def make_request(device_type: DeviceType = DeviceType.BLINDS, id: int = -1):
     url: str = BASE_PATH + f'/devices/{id}/get_value'
     print(f"URL: {url}")
     res = requests.get(url)
-    print(f"Result: {res}")
+    print(res)
+    if res.status_code == 200:
+        value = res.json()
+        if(device_type == DeviceType.BLINDS):
+            print(f"Sunblind {id}: {value['data']}")
+        elif(device_type == DeviceType.THERMOMETERS):
+            print(f"Thermometer {id}: {value['data']}")

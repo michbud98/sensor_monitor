@@ -112,6 +112,7 @@ def device_value_get(request, device_id):
             specific_device.last_requested_open_value = value
             
         specific_device.last_request = datetime.today()
+        specific_device.save()
         return_data = { "status_code": 200,"data": value }
         return JsonResponse(return_data)
     else:
