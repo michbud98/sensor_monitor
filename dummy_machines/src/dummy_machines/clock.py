@@ -24,10 +24,13 @@ def init_argparse() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("device_type", help="Type of device [Thermometer/Sunblind]")
     parser.add_argument("device_id", help="Number representing id of device", type=int)
+    parser.add_argument('-url',action="store", dest="url",
+    help="URL of Django control app [default localhost:8000]")
     parser.add_argument('-s', "--seconds",action="store", dest="seconds",
     help="Trigger interval in seconds", type=int)
     parser.add_argument('-m', "--minutes",action="store", dest="minutes",
-    help="Trigger interval in seconds", type=int)
+    help="Trigger interval in minutes [on default 1 min]", type=int)
+    
     
     return parser
 
@@ -41,15 +44,20 @@ def create_job(args, parser, sched):
         parser.print_help(sys.stderr)
         print(f"Device type argument [{args.device_type}] is not valid argument")
         exit(1)
+    
+    if args.url is None:
+        url = "http://localhost:8000"
+    else:
+        url = args.url
 
     if args.seconds is not None:
-        sched.add_job(scheduled_job, args=[{"device_type": device_type, "id": args.device_id}],
+        sched.add_job(scheduled_job, args=[{"django_url": url, "device_type": device_type, "id": args.device_id}],
         trigger='interval', seconds=args.seconds)
     elif args.minutes is not None:
-        sched.add_job(scheduled_job, args=[{"device_type": device_type, "id": args.device_id}],
+        sched.add_job(scheduled_job, args=[{"django_url": url, "device_type": device_type, "id": args.device_id}],
         trigger='interval', minutes=args.minutes)
     else:
-        sched.add_job(scheduled_job, args=[{"device_type": device_type, "id": args.device_id}],
+        sched.add_job(scheduled_job, args=[{"django_url": url, "device_type": device_type, "id": args.device_id}],
         trigger='interval', minutes=1)
 
 def main():

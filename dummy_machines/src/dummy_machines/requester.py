@@ -3,7 +3,7 @@ import random
 import requests
 from urllib.parse import urlparse, ParseResult
 
-BASE_PATH: str = "http://localhost:8000"
+
 
 blinds = [f'B{i}' for i in range(0, 5)]
 thermometers = [f'T{i}' for i in range(0, 5)]
@@ -14,7 +14,7 @@ class DeviceType(Enum):
     BLINDS = "Blinds"
     THERMOMETERS = "Thermo"
 
-def make_request(device_type: DeviceType = DeviceType.BLINDS, id: int = -1):
+def make_request(django_url: str = "http://localhost:8000", device_type: DeviceType = DeviceType.BLINDS, id: int = -1):
     if(device_type == DeviceType.BLINDS):
         if(id == -1):
             id = random.randint(0, len(blinds)-1)
@@ -24,8 +24,8 @@ def make_request(device_type: DeviceType = DeviceType.BLINDS, id: int = -1):
             id = random.randint(0, len(thermometers)-1)
         id: str = thermometers[id]
 
-    url: str = BASE_PATH + f'/devices/{id}/get_value'
-    print(f"URL: {url}")
+    url: str = django_url + f'/devices/{id}/get_value'
+    print(f"URL: {django_url}")
     res = requests.get(url)
     print(res)
     if res.status_code == 200:
