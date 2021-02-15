@@ -25,7 +25,7 @@ def make_request(django_url: str = "http://localhost:8000", device_type: DeviceT
         id: str = thermometers[id]
 
     url: str = django_url + f'/devices/{id}/get_value'
-    print(f"URL: {django_url}")
+    print(f"URL: {url}")
     res = requests.get(url)
     print(res)
     if res.status_code == 200:
