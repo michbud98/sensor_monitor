@@ -2,8 +2,8 @@
 
 {% block content %}
 <div class="container-fluid pt-4">
-    <h1>Rooms list</h1>
     {% if rooms_set %}
+    <h1>Rooms list</h1>
     <div class=row>
         <table class="table">
             <tr>
@@ -23,17 +23,22 @@
         </table>
     </div>
     <div class="d-flex justify-content-around mb-3">
-        <a class="p-2 links-btn links-color" href="{% url 'room_create' %}">Add new room</a>
+        <a class="btn btn-success" href="{% url 'room_create' %}">Add new room</a>
         <a class="p-2 links-btn links-color" href="{% url 'home' %}">Back to main menu</a>
     </div>
     
 </div>
     
 {% else %}
-<div class="container-fluid">
+<div class="d-flex justify-content-around mb-3">
+    <h1>Rooms list</h1>
+</div>
+<div class="d-flex justify-content-around mb-3">
     <p>There are no rooms in a database. <a class="badge bg-success text-decoration-none" href="{% url 'room_create' %}">Please add new rooms.</a></p>
 </div>
-    
+<div class="d-flex justify-content-around mb-3">
+    <a class="p-2 links-btn links-color" href="{% url 'home' %}">Back to main menu</a>
+</div>
 {% endif %}
 
 {% endblock %}

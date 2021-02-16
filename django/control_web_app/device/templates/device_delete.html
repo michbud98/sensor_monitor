@@ -1,12 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %} 
-<form action="{% url 'device_remove' device_id=obj.device_id %}" method="POST"> {% csrf_token %}
-    <h1>Comfirm removal of device id: <u>{{ obj.device_id }}</u></h1>
-    <p>Hostname: {{ obj.device_type }}</p>
-    {% if obj.room %}
-    <p>Room: <a href="{% url 'room_detail' room_id=obj.room.id %}">{{ obj.room }}</a></p>
-    {% endif %}
-    <p><input type="submit" value="Yes"> <a href="{% url 'device_list'%}">Cancel</a></p>
-</form>
+<div class="container-fluid pt-4">
+    <div class="d-flex justify-content-around mb-3">
+        <form action="{% url 'device_remove' device_id=obj.device_id %}" method="POST"> {% csrf_token %}
+            <h1>Comfirm removal of device id: <u>{{ obj.device_id }}</u></h1>
+            <p>Device type: {{ obj.device_type }}</p>
+            {% if obj.room %}
+            <p>Room: <a class="badge bg-success text-decoration-none" href="{% url 'room_detail' room_id=obj.room.id %}">
+                {{ obj.room }}</a></p>
+            {% endif %}
+            <div class="d-flex justify-content-around mb-3 pt-4">
+                <input class="btn btn-danger" type="submit" value="REMOVE">
+                <a class="btn btn-secondary" href="{% url 'device_list'%}">Cancel</a>
+            </div>
+            
+        </form>
+    </div>
+</div>
+
 {% endblock %}
