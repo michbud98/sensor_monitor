@@ -1,24 +1,39 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Rooms list</h1>
-{% if rooms_set %}
-<table>
-    <tr>
-        <th>Room</th>
-    </tr>
-    {% for room in rooms_set %}
-    <tr>
-        <td>{{ room.room_name }}</td>
-        <td><a href="{% url 'room_update' room_id=room.id %}">Edit</a></td>
-        <td><a href="{% url 'room_detail' room_id=room.id %}">Detail</a></td>
-        <td><a href="{% url 'room_remove' room_id=room.id %}">Remove</a></td>
-    </tr>
-    {% endfor %}
-</table>
-<p><a href="{% url 'room_create' %}">Add new room</a></p>
+<div class="container-fluid pt-4">
+    <h1>Rooms list</h1>
+    {% if rooms_set %}
+    <div class=row>
+        <table class="table">
+            <tr>
+                <th scope="col">Room</th>
+                <th scope="col"><!-- empty table headers for formatting --></th> 
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+            {% for room in rooms_set %}
+            <tr>
+                <td scope="row">{{ room.room_name }}</td>
+                <td><a class="btn btn-success" href="{% url 'room_update' room_id=room.id %}">Edit</a></td>
+                <td><a class="btn btn-info" href="{% url 'room_detail' room_id=room.id %}">Detail</a></td>
+                <td><a class="btn btn-danger" href="{% url 'room_remove' room_id=room.id %}">Remove</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="d-flex justify-content-around mb-3">
+        <a class="p-2 links-btn links-color" href="{% url 'room_create' %}">Add new room</a>
+        <a class="p-2 links-btn links-color" href="{% url 'home' %}">Back to main menu</a>
+    </div>
+    
+</div>
+    
 {% else %}
-<p>There are no rooms in a database. <a href="{% url 'room_create' %}">Please add new rooms.</a></p>
+<div class="container-fluid">
+    <p>There are no rooms in a database. <a class="badge bg-success text-decoration-none" href="{% url 'room_create' %}">Please add new rooms.</a></p>
+</div>
+    
 {% endif %}
-<a href="{% url 'home' %}">Back to main menu</a>
+
 {% endblock %}

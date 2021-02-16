@@ -57,6 +57,7 @@ def room_detail_view(request, room_id):
     temp_dict = queries.create_temp_dict(sensors_set)
     pressure_dict = queries.create_pressure_dict(sensors_set)
     humidity_dict = queries.create_humidity_dict(sensors_set)
+    device_val_dict = {}
     my_context = {
             "obj" : obj,
             "sensors_set": sensors_set,
