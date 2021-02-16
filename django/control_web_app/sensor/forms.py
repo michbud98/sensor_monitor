@@ -18,3 +18,16 @@ class Sensor_form(forms.ModelForm):
         model = Sensor
         fields = "__all__"
         
+    def clean_room(self):
+        location = self.cleaned_data.get("location")
+        room = self.cleaned_data.get("room")
+        print(location)
+        print(room)
+
+        if location == "outdoors" and room is not None:
+            raise forms.ValidationError("Location outdoors can't have set room")
+        if location == "boiler" and room is not None:
+            raise forms.ValidationError("Boiler can't have set room")
+        else:
+            return room
+        

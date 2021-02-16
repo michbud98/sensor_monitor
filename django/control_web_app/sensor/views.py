@@ -30,16 +30,23 @@ def sensor_list_view(request):
 def sensor_create_view(request, sensor_id, hostname, sensor_type):
     # TODO Might be a good idea to add some try catch or something like that
     initial_data = { "sensor_id": sensor_id, "hostname": hostname, "sensor_type": sensor_type}
+    my_context = {}
     if request.method == "POST":
         form = Sensor_form(request.POST)
         if form.is_valid():
             form.save()
             return redirect(sensor_list_view)
+        else:
+            form = Sensor_form(request.POST)
+            my_context ={
+                'form':form,
+            }
     else:
         form = Sensor_form(initial=initial_data)
         my_context ={
             'form':form,
         }
+    
     return render(request, "sensor_create.html", my_context)
 
 def sensor_update_view(request, sensor_id):

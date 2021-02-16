@@ -89,31 +89,43 @@ def query_sensor_fields(sensor_id):
     return query_field_from_db(fields_query)
 
 def query_last_sensor_temp(sensor_id):
-    temperature_query = "from(bucket: \"{}\")\
+    query = "from(bucket: \"{}\")\
         |> range(start: -1h)\
         |> filter(fn: (r) => r._measurement == \"sensor_temperature\")\
         |> filter(fn: (r) => r._field == \"temperature\")\
         |> filter(fn: (r) => r.sensor_id == \"{}\")\
         |> last()".format(get_bucket(), sensor_id)
-    return query_field_val_from_db(temperature_query)[0][1]
+    result = query_field_val_from_db(query)
+    if not result:
+        return None
+    else:
+        return result[0][1]
 
 def query_last_sensor_pressure(sensor_id):
-    temperature_query = "from(bucket: \"{}\")\
+    query = "from(bucket: \"{}\")\
         |> range(start: -1h)\
         |> filter(fn: (r) => r._measurement == \"sensor_pressure\")\
         |> filter(fn: (r) => r._field == \"pressure\")\
         |> filter(fn: (r) => r.sensor_id == \"{}\")\
         |> last()".format(get_bucket(), sensor_id)
-    return query_field_val_from_db(temperature_query)[0][1]
+    result = query_field_val_from_db(query)
+    if not result:
+        return None
+    else:
+        return result[0][1]
 
 def query_last_sensor_humidity(sensor_id):
-    temperature_query = "from(bucket: \"{}\")\
+    query = "from(bucket: \"{}\")\
         |> range(start: -1h)\
         |> filter(fn: (r) => r._measurement == \"sensor_humidity\")\
         |> filter(fn: (r) => r._field == \"humidity\")\
         |> filter(fn: (r) => r.sensor_id == \"{}\")\
         |> last()".format(get_bucket(), sensor_id)
-    return query_field_val_from_db(temperature_query)[0][1]
+    result = query_field_val_from_db(query)
+    if not result:
+        return None
+    else:
+        return result[0][1]
 
 def get_sensor_values(sensor_id):
     temp = query_last_sensor_temp(sensor_id)
@@ -122,40 +134,56 @@ def get_sensor_values(sensor_id):
     return temp, press, hum
 # ----------------------boiler-------------------------
 def query_last_boiler_radiator_tmp_in(sensor_id):
-    temperature_query = "from(bucket: \"{}\")\
+    query = "from(bucket: \"{}\")\
     |> range(start: -1h)\
     |> filter(fn: (r) => r._measurement == \"boiler_radiator_temp\")\
     |> filter(fn: (r) => r._field == \"tmp_in\")\
     |> filter(fn: (r) => r.sensor_id == \"{}\")\
     |> last()".format(get_bucket(), sensor_id)
-    return query_field_val_from_db(temperature_query)[0][1]
+    result = query_field_val_from_db(query)
+    if not result:
+        return None
+    else:
+        return result[0][1]
 
 def query_last_boiler_radiator_tmp_out(sensor_id):
-    temperature_query = "from(bucket: \"{}\")\
+    query = "from(bucket: \"{}\")\
     |> range(start: -1h)\
     |> filter(fn: (r) => r._measurement == \"boiler_radiator_temp\")\
     |> filter(fn: (r) => r._field == \"tmp_out\")\
     |> filter(fn: (r) => r.sensor_id == \"{}\")\
     |> last()".format(get_bucket(), sensor_id)
-    return query_field_val_from_db(temperature_query)[0][1]
+    result = query_field_val_from_db(query)
+    if not result:
+        return None
+    else:
+        return result[0][1]
 
 def query_last_dwh_tmp(sensor_id):
-    temperature_query = "from(bucket: \"{}\")\
+    query = "from(bucket: \"{}\")\
     |> range(start: -1h)\
     |> filter(fn: (r) => r._measurement == \"boiler_dhw\")\
     |> filter(fn: (r) => r._field == \"dhw_tmp\")\
     |> filter(fn: (r) => r.sensor_id == \"{}\")\
     |> last()".format(get_bucket(), sensor_id)
-    return query_field_val_from_db(temperature_query)[0][1]
+    result = query_field_val_from_db(query)
+    if not result:
+        return None
+    else:
+        return result[0][1]
 
 def query_last_dwh_coil_tmp(sensor_id):
-    temperature_query = "from(bucket: \"{}\")\
+    query = "from(bucket: \"{}\")\
     |> range(start: -1h)\
     |> filter(fn: (r) => r._measurement == \"boiler_dhw\")\
     |> filter(fn: (r) => r._field == \"dhw_coil_temp\")\
     |> filter(fn: (r) => r.sensor_id == \"{}\")\
     |> last()".format(get_bucket(), sensor_id)
-    return query_field_val_from_db(temperature_query)[0][1]
+    result = query_field_val_from_db(query)
+    if not result:
+        return None
+    else:
+        return result[0][1]
 
 def get_boiler_values(sensor_id):
     tmp_in_get = query_last_boiler_radiator_tmp_in(sensor_id)
