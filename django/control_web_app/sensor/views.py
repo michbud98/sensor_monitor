@@ -69,7 +69,7 @@ def sensor_remove_view(request, sensor_id):
 
 def sensor_detail_view(request, sensor_id):
     obj, temperature, pressure, humidity  = None, None, None, None
-    tmp_in, tmp_out, dhw_tmp, dhw_coil_temp = None, None, None, None
+    tmp_in, tmp_out, dwh_tmp, dhw_coil_temp = None, None, None, None
     boiler_bool = None
     try:
         obj = Sensor.objects.get(sensor_id=sensor_id)
@@ -90,6 +90,7 @@ def sensor_detail_view(request, sensor_id):
         else:
             print(sensor_fields)
             raise Except(sensor_fields)
+    
     my_context = {
             "sensor_id": sensor_id, "obj" : obj,
             "temperature": temperature, "pressure": pressure, "humidity": humidity,
