@@ -2,7 +2,11 @@
 
 {% block content %}
 <div class="container-fluid pt-4">
-    <h1>{{ device.device_id }} detail</h1>
+    {% if device.device_type == "sunblind" %}
+    <h1>Sunblind {{ device.device_id }} detail</h1>
+    {% elif device.device_type == "thermo_head" %}
+    <h1>Thermostatic head {{ device.device_id }} detail</h1>
+    {% endif %}
     <h2>Device information</h2>
     <ul class="list-group">
         <li class="list-group-item"><label>Device type:</label> <value>{{ device.device_type }}</value></li>
