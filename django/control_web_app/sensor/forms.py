@@ -13,6 +13,8 @@ class Sensor_form(forms.ModelForm):
     #     room_choices.append((room.id, room.room_name))
 
     location = forms.CharField(label='Choose where sensor is located:', widget=forms.RadioSelect(choices=LOCATION_CHOICES))
+    description = forms.CharField(required=False, widget=forms.Textarea(attrs={ "rows": 5 }))
     class Meta:
         model = Sensor
         fields = "__all__"
+        
