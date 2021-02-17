@@ -28,7 +28,10 @@ def get_sensor_values(sensor_id):
     return temp, pres, hum
 
 def get_list_average(lst): 
-    return sum(lst) / len(lst) 
+    if len(lst) == 0:
+        return 0
+    else:
+        return sum(lst) / len(lst) 
 
 def get_boiler_values():
     sensor_set = Sensor.objects.filter(location="boiler")
