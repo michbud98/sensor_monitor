@@ -8,8 +8,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 bucket = "Sensor_data"
 org = "swiftblade1982@gmail.com"
 # Gets Influx token from file
-with open(os.path.join(BASE_DIR, "secrets/influx_cloud_token.txt")) as f:
-    token = f.read().strip()
+# with open(os.path.join(BASE_DIR, "secrets/influx_cloud_token.txt")) as f:
+#     token = f.read().strip()
+
+token = os.getenv("INFLUX_TOKEN", None)
+if(token is None):
+    raise RuntimeError("Environment variable INFLUX_TOKEN not found.")
 # Store the URL of your InfluxDB instance
 url = "https://eu-central-1-1.aws.cloud2.influxdata.com"
 

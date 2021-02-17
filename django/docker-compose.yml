@@ -15,11 +15,12 @@ services:
       - postgres_data:/var/lib/postgresql/data/pgdata
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:$PORT
+    env_file: .env
     volumes:
-      - $PWD/control_web_app:/app
+      - ./control_web_app:/app
     ports:
-      - "8000:8000"
+      - "$PORT:$PORT"
     depends_on:
       - db
 

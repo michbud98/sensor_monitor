@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -18,18 +19,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-with open(os.path.join(BASE_DIR,"secrets/secret_key.txt")) as f:
-    SECRET_KEY = f.read().strip()
+# with open(os.path.join(BASE_DIR,"secrets/secret_key.txt")) as f:
+#     SECRET_KEY = f.read().strip()
+SECRET_KEY = os.getenv("SECRET_KEY", None)
+if(SECRET_KEY is None):
+    raise RuntimeError("Environment variable SECRET_KEY not found.")
     
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", True)
 
+ALLOWED_HOSTS = ["localhost", "intelligent-building-django.herokuapp.com"]
 
-
-ALLOWED_HOSTS = ["localhost"]
-
-with open(os.path.join(BASE_DIR,"secrets/rpi_local_adress.txt")) as f:
-    ALLOWED_HOSTS.append(f.read().strip()) 
+ALLOWED_HOSTS.append(os.getenv("LOCAL_UP", "0.0.0.0")) 
 
 # Application definition
 
@@ -96,6 +97,11 @@ DATABASES = {
     }
 }
 
+# Adds config for heroku postgres database
+LOCAL = os.getenv("LOCAL", True)
+if LOCAL !=True:
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -138,3 +144,4 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
+
