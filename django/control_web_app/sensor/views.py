@@ -32,12 +32,12 @@ def sensor_create_view(request, sensor_id, hostname, sensor_type):
     initial_data = { "sensor_id": sensor_id, "hostname": hostname, "sensor_type": sensor_type}
     my_context = {}
     if request.method == "POST":
-        form = Sensor_form(request.POST)
+        form = Sensor_form(request.POST, initial=initial_data)
         if form.is_valid():
             form.save()
             return redirect(sensor_list_view)
         else:
-            form = Sensor_form(request.POST)
+            form = Sensor_form(request.POST, initial=initial_data)
             my_context ={
                 'form':form,
             }
