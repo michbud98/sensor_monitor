@@ -22,11 +22,11 @@
         {% if thermo_head %}
         <li class="list-group-item"><label>Heat value: </label> <value>{{ thermo_head.set_heat_value }}</value></li>
         <li class="list-group-item"><label>Last requested heat value: </label> <value>{{ thermo_head.last_requested_heat_value }}</value></li>
-        <li class="list-group-item"><label>Last request datetime: </label> <value>{{ thermo_head.last_request }}</value></li>
+        <li class="list-group-item"><label>Last request datetime: </label> <value>{{ thermo_head.last_request }} UTC</value></li>
         {% elif sunblind %}
         <li class="list-group-item"><label>Open value: </label> <value>{{ sunblind.set_open_value }}</value></li>
         <li class="list-group-item"><label>Last requested open value: </label> <value>{{ sunblind.last_requested_open_value }}</value></li>
-        <li class="list-group-item"><label>Last request datetime: </label> <value>{{ sunblind.last_request }}</value></li>
+        <li class="list-group-item"><label>Last request datetime: </label> <value>{{ sunblind.last_request }}</value> UTC</li>
         {% endif %}
     </ul>
     <div class="d-flex justify-content-around mb-3 pt-4">
