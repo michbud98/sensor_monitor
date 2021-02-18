@@ -46,12 +46,18 @@
             <tr>
                 <th scope="col">Device_id</th>
                 <th scope="col">Device_type</th>
+                <th scope="col">Device_value</th>
                 <th scope="col"></th>
             </tr>
             {% for device in devices_set %}
             <tr>
                 <td scope="row">{{ device.device_id }}</td>
                 <td>{{ device.device_type }}</td>
+                {% if device.device_type == "sunblind" %}
+                <td>{{ device.set_open_value }}</td>
+                {% elif device.device_type == "thermo_head" %}
+                <td>{{ device.set_heat_value }}</td>
+                {% endif %}
                 <td><a class="badge bg-secondary text-decoration-none" 
                     href="{% url 'device_values_edit' device_id=device.device_id room_id=obj.id %}">
                     Edit device values</a>

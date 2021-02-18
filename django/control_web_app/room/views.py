@@ -52,12 +52,13 @@ def room_update_view(request, room_id):
 def room_detail_view(request, room_id):
     obj = get_object_or_404(Room, id=room_id)
     sensors_set = Sensor.objects.filter(room=room_id)
-    devices_set = Device.objects.filter(room=room_id)
+    devices_set = set()
+    devices_set.update(Sunblind.objects.filter(room=room_id))
+    devices_set.update(Thermo_head.objects.filter(room=room_id))
     
     temp_dict = queries.create_temp_dict(sensors_set)
     pressure_dict = queries.create_pressure_dict(sensors_set)
     humidity_dict = queries.create_humidity_dict(sensors_set)
-    device_val_dict = {}
     my_context = {
             "obj" : obj,
             "sensors_set": sensors_set,
