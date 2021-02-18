@@ -18,6 +18,7 @@ def device_list_view(request):
 
 
 def device_create_view(request):
+    my_context = {}
     if request.method == "POST":
         device_form = Device_form(request.POST)
         if device_form.is_valid():
@@ -28,6 +29,14 @@ def device_create_view(request):
                 form = Sunblind_form(request.POST)
             form.save()
             return redirect(device_list_view)
+        else:
+            if device_form.cleaned_data.get("device_type") == "thermo_head":
+                form = Thermo_head_form(request.POST)
+            elif device_form.cleaned_data.get("device_type") == "sunblind":
+                form = Sunblind_form(request.POST)
+            my_context ={
+                'form':form,
+            }
     else:
         form = Device_form()
         my_context = {
@@ -39,7 +48,9 @@ def device_create_view(request):
 def device_update_view(request, device_id):
     form = None
     obj = get_object_or_404(Device, device_id=device_id)
-    form = Device_form(request.POST or None, instance=obj)
+    device_id_num = obj.device_id[1:len(obj.device_id)]
+    initial_data = { "device_id": device_id_num}
+    form = Device_form(request.POST or None, instance=obj, initial=initial_data)
     if request.method == "POST":
         if form.is_valid():
             form.save()
