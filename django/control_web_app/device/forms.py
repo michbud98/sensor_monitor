@@ -20,7 +20,7 @@ class Device_form(forms.ModelForm):
         final_device_id = ""
 
         if device_type == "sunblind":
-            final_device_id = f"S{device_id}"
+            final_device_id = f"B{device_id}"
         elif device_type == "thermo_head":
             final_device_id = f"T{device_id}"
         else:
