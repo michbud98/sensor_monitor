@@ -14,6 +14,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/pgdata
   web:
+    image: michbud98/django-control-web-app
     build: .
     command: python manage.py runserver 0.0.0.0:$PORT
     env_file: .env
