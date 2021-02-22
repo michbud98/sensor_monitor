@@ -33,6 +33,8 @@ services:
     volumes:
       - ./telegraf/nodemcu/telegraf_docker_my.conf:/etc/telegraf/telegraf.conf:ro
       - ./telegraf/nodemcu/get_sensor_data_nodemcu.py:/etc/telegraf/get_sensor_data_nodemcu.py
+      - ./telegraf/nodemcu/telegraf_logs:/tmp/
+      - ./telegraf/nodemcu/telegraf_logs:/var/log/telegraf/
     links:
       - influxdb 
 
