@@ -8,6 +8,7 @@
 **grafana/grafana_data
 telegraf_docker_my.conf
 telegraf_sensor_data_my.conf
+influx_recovery_file_my.conf
 **/telegraf_logs
 
 # Django Secrets, migration files and postgressdb

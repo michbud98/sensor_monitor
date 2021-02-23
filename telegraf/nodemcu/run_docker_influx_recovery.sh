@@ -1,0 +1,1 @@
+docker run --rm michbud98/telegraf-recovery

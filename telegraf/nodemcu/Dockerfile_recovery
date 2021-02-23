@@ -1,0 +1,9 @@
+FROM telegraf
+
+RUN mkdir /home/root
+WORKDIR /home/root
+
+ADD ./influx_recovery_file_my.conf /etc/telegraf/telegraf.conf
+COPY ./telegraf_logs /tmp/
+
+CMD [ "telegraf","--once" ]
