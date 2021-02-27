@@ -30,7 +30,7 @@ DEBUG = os.getenv("DEBUG", True)
 
 ALLOWED_HOSTS = ["localhost", "intelligent-building-django.herokuapp.com"]
 
-ALLOWED_HOSTS.append(os.getenv("LOCAL_UP", "0.0.0.0")) 
+ALLOWED_HOSTS.append(os.getenv("LOCAL_IP", "0.0.0.0")) 
 
 # Application definition
 
