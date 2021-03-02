@@ -16,12 +16,10 @@ services:
     restart: always
     container_name: influxdb
     ports:
-      - '9999:9999'
-    image: voidborn/rpi_influxdb2
+      - '8086:8086'
+    image: influxdb:2.0.4
     volumes:
       - influxdb_data:/var/lib/influxdb2
-      # command which loads data from mount
-    command: influxd run --bolt-path /var/lib/influxdb2/influxd.bolt --engine-path /var/lib/influxdb2/engine --store bolt
 
   telegraf:
     restart: always
