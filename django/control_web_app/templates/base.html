@@ -19,12 +19,12 @@
         {% include "navbar.html" %}
     </header>
     <body>
-        {% if user.is_authenticated %}
+        <!-- {% if user.is_authenticated %}
             <p>Hello, {{ user.username }}</p>
 
         {% else %}
             <a href="{% url 'users:login'%}">Log in</a>
-        {% endif %}
+        {% endif %} -->
         
         {% block content %} 
         replace me
