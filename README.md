@@ -5,7 +5,7 @@ InfluxDB 2.0 Cloud database url:
 https://eu-central-1-1.aws.cloud2.influxdata.com/
 
 Grafana cloud url:
-https://intelligentbuilding.grafana.net/
+https://intelligentbuilding2.grafana.net/
 
 ## Used resources:
 ### Raspberry pi Enviro Plus sensor library by pimoroni
