@@ -1,16 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %} 
+<div class="container-fluid pt-4">
+    <div class="d-flex justify-content-around mb-3">
+        {% if form.errors %}
+            <p>Your username and password didn't match. Please try again.</p>
+        {% endif %}
 
-{% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
-{% endif %}
-
-<form method="POST" action="{% url 'users:login' %}"> 
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button name="submit">Log in</button>
-    <input type="hidden" name="next" value="{% url 'home' %}" />
-</form>
-
+        <form method="POST" action="{% url 'users:login' %}"> 
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-success" name="submit">Log in</button>
+            <input type="hidden" name="next" value="{% url 'home' %}" />
+        </form>
+    </div>
+</div>
 {% endblock %}
