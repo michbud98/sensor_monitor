@@ -21,6 +21,7 @@ from main_menu.views import home_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view, name='home'),
+    path('users/', include('users.urls')),
     path('sensors/', include('sensor.urls')),
     path('rooms/', include('room.urls')),
     path('devices/', include('device.urls'))

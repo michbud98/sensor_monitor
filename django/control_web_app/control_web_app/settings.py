@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "sensor",
     "room",
     "device",
+    "users",
 ]
 
 MIDDLEWARE = [
