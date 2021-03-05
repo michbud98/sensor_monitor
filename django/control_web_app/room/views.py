@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 from django.template.defaulttags import register
+from django.contrib.auth.decorators import login_required
 
 from sensor.models import Sensor
 from device.models import Device, Thermo_head, Sunblind
@@ -15,6 +16,7 @@ def get_item(dictionary, key):
     return dictionary.get(key)
 
 # Create your views here.
+@login_required
 def room_list_view(request):
     rooms_set = Room.objects.all()
     my_context = {
@@ -22,6 +24,7 @@ def room_list_view(request):
     }
     return render(request, "room_list.html", my_context)
 
+@login_required
 def room_create_view(request):
     if request.method == "POST":
         form = Room_form(request.POST)
@@ -35,6 +38,7 @@ def room_create_view(request):
         }
     return render(request, "room_create.html", my_context)
 
+@login_required
 def room_update_view(request, room_id):
     obj = get_object_or_404(Room, id=room_id)
     form = Room_form(request.POST or None, instance=obj)
@@ -49,6 +53,7 @@ def room_update_view(request, room_id):
     }
     return render(request, "room_create.html", context)
 
+@login_required
 def room_detail_view(request, room_id):
     obj = get_object_or_404(Room, id=room_id)
     sensors_set = Sensor.objects.filter(room=room_id)
@@ -69,6 +74,7 @@ def room_detail_view(request, room_id):
         }
     return render(request, "room_detail.html", my_context)
 
+@login_required
 def room_remove_view(request, room_id):
     obj = get_object_or_404(Room, id=room_id)
     if request.method == "POST":

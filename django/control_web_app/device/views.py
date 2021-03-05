@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 from django.http import HttpResponse, JsonResponse
+from django.contrib.auth.decorators import login_required
 
 from datetime import datetime
 from .models import Device, Thermo_head, Sunblind
@@ -8,7 +9,7 @@ from .forms import Device_form, Thermo_head_form, Sunblind_form, Thermo_head_val
 
 # Create your views here.
 
-
+@login_required
 def device_list_view(request):
     devices_set = Device.objects.all()
     my_context = {
@@ -16,7 +17,7 @@ def device_list_view(request):
     }
     return render(request, "device_list.html", my_context)
 
-
+@login_required
 def device_create_view(request):
     my_context = {}
     if request.method == "POST":
@@ -44,7 +45,7 @@ def device_create_view(request):
         }
     return render(request, "device_create.html", my_context)
 
-
+@login_required
 def device_update_view(request, device_id):
     form = None
     obj = get_object_or_404(Device, device_id=device_id)
@@ -60,7 +61,7 @@ def device_update_view(request, device_id):
     }
     return render(request, "device_create.html", my_context)
 
-
+@login_required
 def device_detail_view(request, device_id):
     device = get_object_or_404(Device, device_id=device_id)
     thermo_head = None
@@ -77,7 +78,7 @@ def device_detail_view(request, device_id):
     }
     return render(request, "device_detail.html", my_context)
 
-
+@login_required
 def device_values_edit_view(request, device_id, room_id):
     device = get_object_or_404(Device, device_id=device_id)
     thermo_head = None
@@ -130,7 +131,7 @@ def device_value_get(request, device_id):
         return HttpResponse(status=405)
     print()
 
-
+@login_required
 def device_remove_view(request, device_id):
     obj = get_object_or_404(Device, device_id=device_id)
     if request.method == "POST":

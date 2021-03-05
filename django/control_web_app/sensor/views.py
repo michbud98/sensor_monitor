@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.template.defaulttags import register
 from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
 
 from . import queries
 from .models import Sensor
@@ -13,6 +14,7 @@ def get_item(dictionary, key):
     return dictionary.get(key)
 
 # Create your views here.
+@login_required
 def sensor_list_view(request):
     unset_list, set_list, boiler_list = queries.sort_sensor_ids(queries.query_all_tag_values("sensor_id"))
     hostname_dict = queries.create_hostname_dict(queries.query_all_tag_values("sensor_id"))
@@ -27,6 +29,7 @@ def sensor_list_view(request):
     }
     return render(request, "sensor_list.html", my_context)
 
+@login_required
 def sensor_create_view(request, sensor_id, hostname, sensor_type):
     # TODO Might be a good idea to add some try catch or something like that
     initial_data = { "sensor_id": sensor_id, "hostname": hostname, "sensor_type": sensor_type}
@@ -49,6 +52,7 @@ def sensor_create_view(request, sensor_id, hostname, sensor_type):
     
     return render(request, "sensor_create.html", my_context)
 
+@login_required
 def sensor_update_view(request, sensor_id):
     obj = get_object_or_404(Sensor, sensor_id=sensor_id)
     form = Sensor_form(request.POST or None, instance=obj)
@@ -63,6 +67,7 @@ def sensor_update_view(request, sensor_id):
     }
     return render(request, "sensor_create.html", context)
 
+@login_required
 def sensor_remove_view(request, sensor_id):
     obj = get_object_or_404(Sensor, sensor_id=sensor_id)
     if request.method == "POST":
@@ -74,6 +79,7 @@ def sensor_remove_view(request, sensor_id):
     }
     return render(request, "sensor_delete.html", my_context)
 
+@login_required
 def sensor_detail_view(request, sensor_id):
     obj, temperature, pressure, humidity  = None, None, None, None
     tmp_in, tmp_out, dwh_tmp, dhw_coil_temp = None, None, None, None

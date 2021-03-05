@@ -13,19 +13,20 @@ import os
 from pathlib import Path
 import dj_database_url
 
-LOGOUT_REDIRECT_URL = 'users:login'
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# with open(os.path.join(BASE_DIR,"secrets/secret_key.txt")) as f:
-#     SECRET_KEY = f.read().strip()
 SECRET_KEY = os.getenv("SECRET_KEY", None)
 if(SECRET_KEY is None):
     raise RuntimeError("Environment variable SECRET_KEY not found.")
     
+# My settings
+LOGIN_URL = 'users:login'
+LOGOUT_REDIRECT_URL = 'users:login'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", True)
 
