@@ -42,7 +42,7 @@ def create_job(args, parser, sched):
         device_type = requester.DeviceType.BLINDS
     else:
         parser.print_help(sys.stderr)
-        print(f"Device type argument [{args.device_type}] is not valid argument")
+        logging.info(f"Device type argument [{args.device_type}] is not valid argument")
         exit(1)
     
     if args.url is None:
