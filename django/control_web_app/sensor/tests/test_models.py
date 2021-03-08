@@ -5,8 +5,8 @@ from sensor.models import Sensor
 class TestAppModels(TestCase):
     
     @classmethod
-    def setUpTestData(cls):
-        cls.new = Sensor.objects.create(sensor_id="S1", hostname="sensor", sensor_type="enviro-plus", location="indoors")
+    def setUp(self):
+        self.new = Sensor.objects.create(sensor_id="S1", hostname="sensor", sensor_type="enviro-plus", location="indoors")
 
     def test_model_str(self):
         self.assertEqual(str(self.new), "S1")
