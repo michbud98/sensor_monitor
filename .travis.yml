@@ -4,10 +4,11 @@ services:
 env:
   COMPOSE_VERSION: 1.4.1
   global:
-    DEBUG: False
+  - DEBUG: false
     PORT: 8000
-    LOCAL_IP: "192.168.88.107"
-    # secure: PDsk1KlYOoxQzCdx97rEjQ4MYJXHzeyIx9XP6WxbS+EpjGxxHKxeBgxSK3dsE2LHNmFlviABVJTPs0XJ59mKmvIg745aoNoWZZnkrXAwG3K3Om2JibsE6Ja9lYMhO296MFez5jMEiQc39JeWR5GiQU167U+XyLB7ereaqTjRg5hDExLNJyxdz0cOTiwqtquHn52nuIpIwVStBw/DqvHqLIMqkAJAosu4j7moZ4y1CYJcZbYxaf2B/rqHgldYmy+m7v0NnXfFJtDTplCUlHho7k4iYDx3Qz2pQbPiIgbGDa8hIdn9kBAXkfHo0gP4u6Dy7sSYATU4pk9nA9Ikghnh6IwwpLi4rgL8m1Mfp6q/fspkRaWHeqav86NBmBU4PHZ2wJguCwx5PgEesm38HOC+ptiWTAsaplhThzaSjW6guDfTFNQnDAb4HsZaUAzXfC9zZo5f4aExfLJe96+kfbx9SVzSH61VRB0nlXY20CNQI8mBgg1ap+sOlJtsO+exAssvoKYG2y7XgrxEz4aKP54Ekzaji1MKjFhVe2YElnnkNeSvh2hkSsl/w0dh6pcUjGUTxPilUy8V6+2nTie6DZW/DYeaKq9Jqu5noQurXrLQVMyTuidcp7n/YXIUFEGNxb02LQ6tiPQZqpQClyon+UXu0NjiOOHUmiiqtKWY2dgRgQc=
+    LOCAL_IP: 192.168.88.107
+  - secure: 21iAQmWNqg0w3YPybyIjirtM+f4O1G8oScwstPGoR7lj1hWStC6kwtXtZzfquQ5srCF+AKhXbUVCumvom0fHwPfXr6BHz0xR3lJ7ud5XOLnJwCtraNXX9Wd7gEzN8Zm/xqEQ3b6FYR4xfwy32xbj5kAS/L+gr7gi1NVs3olrmGtgGCH00JgIN96NB34Y9G8Jj4dow59ek3497MMWefAGbXZaUuXaXDkTj/6RTfber1jG7BOhcMfPAiWI/5BZnSDkBkUemIE16xKWDQF0AqrMMIzLV3K1c+pyV5yinJ5EDrvNfzhxiqwoi/4DR/pzHQTcGFDyC+29M8fi60sikWd8Cz3PZM7BMjFQKVTWluYeoRSF304kz+/ueuMbeRLHecKhqsHdLIc42kVZq7g5GbL+Fw0ZtfjEJ0r9W+vkLcbf4IL8JHTab4FqzY2kbhO+gRSuNSaKxHu9lFjXOV1K36M8iKzbdHtgIo6OAmqb6LCpc/xMaEqLuwWaDe39qtckbb/3tAYj9qq+IX6awKjYSdrf4JtKRjwfxbcP3fF2uwBvOYPKrC6lg9ClxvRJQb8wxCmzBhwbE/LZwI3JoMt0h0kH+jxlj7YQoBDoLzr2lKpFBbE/UVhFxAOWtDdjmMaYFIBbtiBS7g20lQWNGbkk+bCixFHWZbeHEfsqamotLak6A9k=
+  - secure: vRZ89RxQBtB/1GLNcOAIrhRRmRVojW8kOaj+rYW1l0q5ynHY3zXSiEWrh4BEQ9izOD/SVtkZceMVAgNyCNwAUi7MmBnQOmQAEt+g+RFV41xyv0Lw2ey1gG7+aIT/5yXJx8uuSKBihflRkF1FNP8RGkefeGigy7KNYwsgIFfvHEWZb3nyX8MsZCTE09IRZ08GB7HMKb0c/bEGwitQ0Lefd57EWSktBBuTJoQh7aG1raTv/FKAPPqsj5iV08+fbj0J7DP3KvT1lVaqFwRsBxgB4LRZNpKhvOHy7UZUn/rxEPJeSgOt891yfpUbzBaUoWPphDFVS3n2ufRkMT26TdVZra6neMoKD1Q4aQ33HnZemtL/rEb2GgDohCNySVwDHwbHEL00bkagut+3bZ2679X99fTAEsSnkaHGsjecxe3YA1vYvFZmXZHDgMeetwFwwoofHLfu4OUxQsLfez03z1oBbBTbXEc2mHlndX4Y5ZkzLRAw86pTSWrQKty2BQstFGaxpEeSMKiIG95ti3vjhWof3PSTwBeNTX9F/9z4jWXgODYwOGdzRNs1ND+4Yr/feAXf1uSKix3onfT3WfE6Ur0ndfdmHNaq2BRwIAQAxonKqhl4Uk/8gGA+hzbApmbosfvoPThElwp/c5zr2kXjncXE6vFv1NCBjxSxdFXE9bj/4QQ=
 before_install:
 - curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname
   -s`-`uname -m` > docker-compose
@@ -19,7 +20,7 @@ script:
 - echo "$SECRET_KEY"
 - echo "$PORT"
 - docker-compose build
-# - docker-compose run web python manage.py test
+- docker-compose run web python manage.py test
 
 # deploy:
 #   provider: heroku
