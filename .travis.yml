@@ -29,9 +29,9 @@ deploy:
   # api_key:
   #   secure: "3wjmwm122UprBvpzT7NkIPdo0pUFBaAL450Aj2xTzU966vKiFxl/rcjx75f7Qg9XCI5s2YlC93AKfVI1394CONoYA0TTXKRa3q+oL9rBsrgwDBU/BbO7YA7Tuoj2dF10tETufldfeahlnV1Lrk6RwVYyUgd/qTR/6Gm/UdQ82mHCJejrSPPI79bz3EJJNUFCB2++ng8gDZDXTiFmVARym4S5mfWXLapThDJLoW8SDobnhnPMU1bkIbZ0LBCEQSlt/oYX8o0yiqLatLQ4u1vVZPrN75LcbcZEqHpybYW86mzsEayzlqw3zA2iJy5MHt9WfBv44iZy7rEjnb5jgVTa3Pb486Vi7WIgEp7FAMGvmp8oupkf/qoDse2/vDDh2Gc5H/TmP2qFGBt8KAK1dFNPKg/UH/Rm56fJx2WHa8+WgBsGLqo47h/LcHRo7qblnr7XJ9ocf5aK7h+s/HsR7trjsDk8Cob9Byxo9xgyGeecXY2bVCOJ7JqzAyqiNxc7Ks/Nqxe3EzoE+7D6Aic8jn4riSAlsaW0MUJsW8NKRlPYiSIgD5rNMlA+lBGubhu/lSf2OIWR3oe1dTTnyfVbfe8QCwKvBsbqDxpCpXDvWWlN1Fc0l9fglnPLDZdjYO7ykQkHg0qlT56mFOqgXrAk2nEYPiuY+ws3yk6NQ3tpePL2iVo="
   script:
-  - heroku container:login --app intelligent-building-django
-  - heroku container:push web --app intelligent-building-django
-  - heroku container:release web --app intelligent-building-django
+  - heroku container:login --app intelligent-building-django;
+  - heroku container:push web --app intelligent-building-django;
+  - heroku container:release web --app intelligent-building-django;
   on:
     # CI is already triggered on all branches, this triggers CD on all branches if CI was OK
     all_branches: true
