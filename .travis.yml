@@ -18,6 +18,7 @@ script:
 - echo "$SECRET_KEY"
 - echo "$INFLUX_TOKEN"
 - docker-compose build
+- docker-compose run web python manage.py makemigrations
 - docker-compose run web python manage.py test
 
 # deploy:
