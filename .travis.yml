@@ -19,7 +19,7 @@ before_install:
 - sudo mv docker-compose /usr/local/bin
 script:
 - echo "$HEROKU_API_KEY"
-- echo "$DEBUG"
+- echo "$LOCAL_IP"
 - docker-compose build
 - docker-compose run web python manage.py makemigrations
 - docker-compose run web python manage.py test
