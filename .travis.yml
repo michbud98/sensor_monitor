@@ -10,15 +10,15 @@ env:
     LOCAL_IP: 192.168.88.107
 before_install:
 - cd django
-- openssl aes-256-cbc -K $encrypted_3c84dcdc6bbe_key -iv $encrypted_3c84dcdc6bbe_iv -in .env.enc -out .env -d
-- curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname
-  -s`-`uname -m` > docker-compose
-- chmod +x docker-compose
-- sudo mv docker-compose /usr/local/bin
-script:
-- docker-compose build
-- docker-compose run web python manage.py makemigrations
-- docker-compose run web python manage.py test
+# - openssl aes-256-cbc -K $encrypted_3c84dcdc6bbe_key -iv $encrypted_3c84dcdc6bbe_iv -in .env.enc -out .env -d
+# - curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname
+#   -s`-`uname -m` > docker-compose
+# - chmod +x docker-compose
+# - sudo mv docker-compose /usr/local/bin
+# script:
+# - docker-compose build
+# - docker-compose run web python manage.py makemigrations
+# - docker-compose run web python manage.py test
 
 deploy:
   provider: script
