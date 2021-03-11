@@ -2,13 +2,13 @@ sudo: required
 services:
 - docker
 env:
-  COMPOSE_VERSION: 1.28.5
-  HEROKU_APP: intelligent-building-django
-  global:
-    DEBUG: false
-    PORT: 8000
-    LOCAL_IP: 192.168.88.107
-    secure: 'LifhKmrilPEUdgMHxgRxzzOax05EbP+JlVGddMQEeoQURQo1U/mBPdzvuajzQlggzzR+dIUn0/x6Fe0RX1rnH4zpm9t9Vl6HpeTZcLqy6UqnU1+/h7NXyuH7OmBzdea79puDE5uyhZaxEkwXyf9ODWx5eUP2n5TVSOMAc5oYNR2x5equGJIzBG+iHM+f8154lwOfBio4iGHe7ybcyGWDBuCmH7JkkYbFgWROKaxQTkNF7nIVqMsbxVk7gdMFptjkkm3+MgNvZgeVmOK1rZFCFmv16rVLNEjVcip9dj/3N9wu7xwGb2QpsIOYdlmEigvwLvkIOSdroy2/2DEqkpX2zZl6x2zWZXkz7I/7BOcVmiFW8bJhbOlnTCXlmsiv/P9fXfcOOtVOlqnOjTbBWoc21zKDfGL1WZaEs0vU49L1OC3j18vGS4RImO6697vhR+qHVVnJTMKdDIV3+Ev5CkqF/6dsXffJHfNjjxIKNxGI1Quws3ONAyD3yvAJYYeShNL21yJewUgp3AzpD4GFUS+c7I3Iqpsu6aQ3HcfM3KyUSYA4t9EXkQrEjuM6jMdJFDKqoQxnvXQWwZmPrww7YrL88FN5z7qfKoVja+5G7SiQPJD2LWY52nI/GMV7HbCSuoqD33PhPzyBgnb8WrWLMSfqxnloyFUSMR0In7czFYS/U8A='
+- COMPOSE_VERSION: 1.28.5
+- HEROKU_APP: intelligent-building-django
+- global:
+  - DEBUG: false
+  - PORT: 8000
+  - LOCAL_IP: 192.168.88.107
+  - secure: 'LifhKmrilPEUdgMHxgRxzzOax05EbP+JlVGddMQEeoQURQo1U/mBPdzvuajzQlggzzR+dIUn0/x6Fe0RX1rnH4zpm9t9Vl6HpeTZcLqy6UqnU1+/h7NXyuH7OmBzdea79puDE5uyhZaxEkwXyf9ODWx5eUP2n5TVSOMAc5oYNR2x5equGJIzBG+iHM+f8154lwOfBio4iGHe7ybcyGWDBuCmH7JkkYbFgWROKaxQTkNF7nIVqMsbxVk7gdMFptjkkm3+MgNvZgeVmOK1rZFCFmv16rVLNEjVcip9dj/3N9wu7xwGb2QpsIOYdlmEigvwLvkIOSdroy2/2DEqkpX2zZl6x2zWZXkz7I/7BOcVmiFW8bJhbOlnTCXlmsiv/P9fXfcOOtVOlqnOjTbBWoc21zKDfGL1WZaEs0vU49L1OC3j18vGS4RImO6697vhR+qHVVnJTMKdDIV3+Ev5CkqF/6dsXffJHfNjjxIKNxGI1Quws3ONAyD3yvAJYYeShNL21yJewUgp3AzpD4GFUS+c7I3Iqpsu6aQ3HcfM3KyUSYA4t9EXkQrEjuM6jMdJFDKqoQxnvXQWwZmPrww7YrL88FN5z7qfKoVja+5G7SiQPJD2LWY52nI/GMV7HbCSuoqD33PhPzyBgnb8WrWLMSfqxnloyFUSMR0In7czFYS/U8A='
 before_install:
 - cd django
 - curl https://cli-assets.heroku.com/install.sh | sh  #install heroku
