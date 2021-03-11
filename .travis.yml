@@ -8,7 +8,7 @@ env:
     PORT: 8000
     LOCAL_IP: 192.168.88.107
 before_install:
-- openssl aes-256-cbc -K $encrypted_3c84dcdc6bbe_key -iv $encrypted_3c84dcdc6bbe_iv -in .env.enc -out .env -d
+- openssl aes-256-cbc -K $encrypted_3c84dcdc6bbe_key -iv $encrypted_3c84dcdc6bbe_iv -in django/.env.enc -out django/.env -d
 - curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname
   -s`-`uname -m` > docker-compose
 - chmod +x docker-compose
