@@ -2,9 +2,9 @@ sudo: required
 services:
 - docker
 env:
-- COMPOSE_VERSION: 1.28.5
-- HEROKU_APP: intelligent-building-django
-- global:
+  global:
+  - COMPOSE_VERSION: 1.28.5
+  - HEROKU_APP: intelligent-building-django
   - DEBUG: false
   - PORT: 8000
   - LOCAL_IP: 192.168.88.107
@@ -19,6 +19,7 @@ before_install:
 - sudo mv docker-compose /usr/local/bin
 script:
 - echo "$HEROKU_API_KEY"
+- echo "$DEBUG"
 - docker-compose build
 - docker-compose run web python manage.py makemigrations
 - docker-compose run web python manage.py test
